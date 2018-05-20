@@ -4,7 +4,6 @@ exports.polls_list = (req, res) => {
   db
     .any("SELECT * FROM polls", [])
     .then(data => {
-      console.log("Data:", data);
       res.status(200);
       res.set("Content-Type", "application/json");
       res.json({ status: "success", data });
@@ -21,7 +20,34 @@ exports.polls_detail = (req, res) => {
 };
 
 exports.polls_create = (req, res) => {
-  res.send("polls_create: NOT IMPLEMENTED");
+  // later user will be gained from JWT
+  const { title, user_id } = req.body;
+  if (!title) {
+    res.status(400);
+    res.set("Content-Type", "application/json");
+    return res.json({ status: "fail", data: { title: "A title is required" } });
+  }
+  db
+    .one("INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id", [
+      user_id,
+      title
+    ])
+    .then(data => {
+      res.status(201);
+      res.set("Location", `/polls/${data.id}`);
+      res.set("Content-Type", "application/json");
+      res.json({
+        status: "success",
+        data
+      });
+    })
+    .catch(err => {
+      res.status(500);
+      res.json({
+        status: "error",
+        message: err
+      });
+    });
 };
 
 exports.polls_delete = (req, res) => {

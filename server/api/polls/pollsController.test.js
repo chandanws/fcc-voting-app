@@ -31,4 +31,21 @@ describe("polls controller", () => {
         });
     });
   });
+
+  describe("polls_create", () => {
+    it("should have proper parameters", () => {
+      return request(app)
+        .post("/polls")
+        .send({
+          user_id: 1,
+          title: "Posted poll title"
+        })
+        .then(res => {
+          console.log(res.body);
+          expect(res.statusCode).toBe(201);
+          const id = res.body.data.id;
+          expect(res.get("Location")).toBe(`/polls/${id}`);
+        });
+    });
+  });
 });
