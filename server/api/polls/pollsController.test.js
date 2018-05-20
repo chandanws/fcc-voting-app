@@ -2,18 +2,23 @@ const request = require("supertest");
 const app = require("../../app");
 const db = require("../../database").db;
 
+// TODO problem with all tests because all users are truncated
+// Add users in beforeeach
+
 describe("polls controller", () => {
   beforeEach(() => {
     return db.none("TRUNCATE polls RESTART IDENTITY");
   });
 
   describe("polls_list", () => {
-    db
-      .none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [1, "Example"])
-      .then(() => console.log("inserted"));
+    beforeEach(() => {
+      return db.none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [
+        1,
+        "Example"
+      ]);
+    });
 
     it("get polls_list", () => {
-      console.log("after inserted");
       return request(app)
         .get("/polls")
         .then(res => {
@@ -39,7 +44,6 @@ describe("polls controller", () => {
           title: "Posted poll title"
         })
         .then(res => {
-          console.log(res.body);
           expect(res.statusCode).toBe(201);
           const id = res.body.data.id;
           expect(res.get("Location")).toBe(`/polls/${id}`);
