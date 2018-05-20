@@ -51,7 +51,21 @@ exports.polls_create = (req, res) => {
 };
 
 exports.polls_delete = (req, res) => {
-  res.send("polls_delete: NOT IMPLEMENTEd");
+  db
+    .result("DELETE FROM polls WHERE id = $1", [req.params.poll_id])
+    .then(result => {
+      if (result.rowCount === 1) {
+        console.log(result);
+        res.status(204);
+        res.json({ status: "success", data: null });
+      } else {
+        res.status(409);
+        res.json({ status: "fail", data: { poll: "Poll doesn't exist" } });
+      }
+    })
+    .catch(err => {
+      res.json({ status: "error", message: err });
+    });
 };
 
 exports.polls_update = (req, res) => {

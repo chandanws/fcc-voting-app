@@ -8,14 +8,12 @@ describe("polls controller", () => {
   });
 
   describe("polls_list", () => {
-    beforeEach(() => {
-      db.none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [
-        1,
-        "Example"
-      ]);
-    });
+    db
+      .none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [1, "Example"])
+      .then(() => console.log("inserted"));
 
     it("get polls_list", () => {
+      console.log("after inserted");
       return request(app)
         .get("/polls")
         .then(res => {
@@ -47,5 +45,21 @@ describe("polls controller", () => {
           expect(res.get("Location")).toBe(`/polls/${id}`);
         });
     });
+  });
+
+  describe("polls_delete", () => {
+    db.none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [
+      1,
+      "Example"
+    ]);
+    it("should delete a poll and respond with 204", () => {
+      return request(app)
+        .delete("/polls/1")
+        .then(res => {
+          expect(res.statusCode).toBe(204);
+        });
+    });
+
+    it("should respond with 409", () => {});
   });
 });
