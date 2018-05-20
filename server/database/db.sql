@@ -17,5 +17,8 @@ CREATE TABLE polls (
 );
 
 CREATE TABLE options (
-  
-)
+  id INTEGER SERIAL PRIMARY KEY,
+  poll_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  name varchar(80),
+  value INTEGER DEFAULT 0
+);
