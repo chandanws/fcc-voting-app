@@ -1,5 +1,7 @@
 exports.polls_list = (req, res) => {
-  res.send("polls_list: NOT IMPLEMENTED");
+  res.status(200);
+  res.set("Content-Type", "application/json");
+  res.json({ status: "success", data: [] });
 };
 
 exports.polls_detail = (req, res) => {
