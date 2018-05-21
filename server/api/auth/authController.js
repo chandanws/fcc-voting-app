@@ -1,3 +1,4 @@
+const jwt = require("jsonwebtoken");
 const db = require("../../database").db;
 
 exports.login = (req, res) => {
@@ -47,6 +48,15 @@ exports.register = (req, res) => {
       }
 
       res.status(201);
+
+      const token = jwt.sign(
+        {
+          data: { username: result.username, id: result.id },
+          exp: Math.floor(Date.now() / 1000) + 3600
+        },
+        process.env.TOKEN_SECRET
+      );
+      res.set("Authorization", `Bearer ${token}`);
       return res.send({
         status: "success",
         data: {

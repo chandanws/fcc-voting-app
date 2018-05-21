@@ -20,6 +20,8 @@ describe("register", () => {
           .send({ username: "user1", password: "pass" })
           .then(res => {
             expect(res.statusCode).toBe(201);
+            expect(res.get("Authorization")).toBeDefined();
+            console.log(res.get("Authorization"));
           });
       });
   });
