@@ -7,15 +7,27 @@ const db = require("../../database").db;
 
 describe("polls controller", () => {
   beforeEach(() => {
-    return db.none("TRUNCATE polls RESTART IDENTITY");
+    return db.task("es7-task", async t => {
+      const nothing = await t.none("TRUNCATE polls RESTART IDENTITY");
+      const nothing3 = await t.none("TRUNCATE users RESTART IDENTITY CASCADE");
+      const nothing2 = await t.none(
+        "INSERT INTO users(username, hash, salt) VALUES (${username}, ${hash}, ${salt})",
+        {
+          username: "admin",
+          hash: "pass",
+          salt: "salt"
+        }
+      );
+      return [];
+    });
   });
 
   describe("polls_list", () => {
-    beforeEach(() => {
-      return db.none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [
-        1,
-        "Example"
-      ]);
+    beforeEach(async () => {
+      return await db.none(
+        "INSERT INTO polls(user_id, title) VALUES ($1, $2)",
+        [1, "Example"]
+      );
     });
 
     it("get polls_list", () => {
@@ -52,18 +64,28 @@ describe("polls controller", () => {
   });
 
   describe("polls_delete", () => {
-    db.none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [
-      1,
-      "Example"
-    ]);
     it("should delete a poll and respond with 204", () => {
+      return db
+        .none("INSERT INTO polls(user_id, title) VALUES ($1, $2)", [
+          1,
+          "Example"
+        ])
+        .then(() => {
+          return request(app)
+            .delete("/polls/1")
+            .then(res => {
+              expect(res.statusCode).toBe(204);
+            });
+        })
+        .catch();
+    });
+
+    it("should respond with 409", () => {
       return request(app)
         .delete("/polls/1")
         .then(res => {
-          expect(res.statusCode).toBe(204);
+          expect(res.statusCode).toBe(409);
         });
     });
-
-    it("should respond with 409", () => {});
   });
 });
