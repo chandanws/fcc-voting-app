@@ -66,3 +66,38 @@ describe("register", () => {
       });
   });
 });
+
+describe("login", () => {
+  beforeAll(() => {
+    const wrongUser = "brumbo";
+    const wrongPassword = "goba";
+    const rightUser = "user1";
+    const rightPassword = "pass";
+  });
+
+  it("should return 400 when password missing", () => {
+    return request(app)
+      .post("/auth/login")
+      .send({ username: "wrongUser" })
+      .then(res => {
+        expect(res.statusCode).toBe(400);
+      });
+  });
+
+  it("should return 400 when username missing", () => {
+    return request(app)
+      .post("/auth/login")
+      .send({ password: "wrongPass" })
+      .then(res => {
+        expect(res.statusCode).toBe(400);
+      });
+  });
+
+  // it("should return 400 when username or password is incorrect", () => {
+
+  // })
+
+  // it("should return 204 and send JWT in authorization when correct", () => {
+
+  // })
+});
