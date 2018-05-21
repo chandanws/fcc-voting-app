@@ -55,7 +55,6 @@ exports.polls_delete = (req, res) => {
     .result("DELETE FROM polls WHERE id = $1", [req.params.poll_id])
     .then(result => {
       if (result.rowCount === 1) {
-        console.log(result);
         res.status(204);
         res.json({ status: "success", data: null });
       } else {
