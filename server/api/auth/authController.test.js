@@ -1,6 +1,7 @@
 const app = require("../../app");
 const request = require("supertest");
 const db = require("../../database").db;
+const helpers = require("../../helpers");
 
 describe("register", () => {
   beforeEach(() => {
@@ -8,21 +9,17 @@ describe("register", () => {
   });
 
   it("should create new user", () => {
-    return db
-      .any("INSERT INTO users (username, hash, salt) VALUES ($1, $2, $3)", [
-        "user2",
-        "pass",
-        "salt"
-      ])
-      .then(() => {
-        return request(app)
-          .post("/auth/register")
-          .send({ username: "user1", password: "pass" })
-          .then(res => {
-            expect(res.statusCode).toBe(201);
-            expect(res.get("Authorization")).toBeDefined();
-            console.log(res.get("Authorization"));
-          });
+    const username = "randomusername";
+    const password = "grumbo";
+    return request(app)
+      .post("/auth/register")
+      .send({ username, password })
+      .then(res => {
+        expect(res.statusCode).toBe(201);
+        expect(res.get("Authorization")).toBeDefined();
+        const token = res.get("Authorization").split(" ")[1];
+        const data = helpers.decodeJWT(token).data;
+        expect(data).toHaveProperty("username", username);
       });
   });
 
