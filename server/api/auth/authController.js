@@ -29,6 +29,15 @@ exports.register = (req, res) => {
       ]);
       if (result.rowCount === 1) {
         return false;
+      } else {
+        return await t.one(
+          "INSERT INTO users (username, hash, salt) VALUES (${username}, ${hash}, ${salt}) RETURNING id, username",
+          {
+            username: username,
+            hash: password,
+            salt: "salt"
+          }
+        );
       }
     })
     .then(result => {
@@ -36,8 +45,17 @@ exports.register = (req, res) => {
         res.status(409);
         return res.send("error");
       }
+
+      res.status(201);
+      return res.send({
+        status: "success",
+        data: {
+          user: "NOT IMPLEMENETED"
+        }
+      });
     })
     .catch(err => {
+      console.log(err);
       return res.status(500).send("NOT IMPLEMENTED");
     });
 };
