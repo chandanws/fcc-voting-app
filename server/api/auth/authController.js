@@ -23,9 +23,16 @@ exports.register = (req, res) => {
   }
 
   db
-    .result("SELECT * FROM users WHERE username = $1", [username])
-    .then(result => {
+    .task("user registration", async t => {
+      const result = await t.result("SELECT * FROM users WHERE username = $1", [
+        username
+      ]);
       if (result.rowCount === 1) {
+        return false;
+      }
+    })
+    .then(result => {
+      if (!result) {
         res.status(409);
         return res.send("error");
       }
