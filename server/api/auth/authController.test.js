@@ -7,14 +7,22 @@ describe("register", () => {
     return db.none("TRUNCATE users RESTART IDENTITY CASCADE");
   });
 
-  // it("should create new user", () => {
-  //   return request(app)
-  //     .post("/auth/login")
-  //     .send({ username: "user1", password: "pass" })
-  //     .then(res => {
-  //       expect(res.statusCode).toBe(204);
-  //     });
-  // });
+  it("should create new user", () => {
+    return db
+      .any("INSERT INTO users (username, hash, salt) VALUES ($1, $2, $3)", [
+        "user2",
+        "pass",
+        "salt"
+      ])
+      .then(() => {
+        return request(app)
+          .post("/auth/register")
+          .send({ username: "user1", password: "pass" })
+          .then(res => {
+            expect(res.statusCode).toBe(201);
+          });
+      });
+  });
 
   it("should not create user when password is missing", () => {
     return request(app)
