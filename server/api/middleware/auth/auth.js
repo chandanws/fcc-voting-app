@@ -5,7 +5,6 @@ exports.authenticationRequired = (req, res, next) => {
   if (authorization && authorization.split(" ")[0] === "Bearer") {
     const token = authorization.split(" ")[1];
     const decoded = jwt.verify(token, process.env.TOKEN_SECRET);
-    console.log(decoded.exp - Math.floor(Date.now() / 1000));
     // check expiration
     if (decoded.exp - Math.floor(Date.now() / 1000) <= 0) {
       res.status(401);
@@ -14,6 +13,8 @@ exports.authenticationRequired = (req, res, next) => {
         data: { authorization: "Missing or Invalid Token" }
       });
     }
+    res.locals.username = decoded.data.username;
+    res.locals.id = decoded.data.id;
     next();
   }
   res.status(401);
