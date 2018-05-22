@@ -1,5 +1,6 @@
 const jwt = require("jsonwebtoken");
 const db = require("../../database").db;
+const helpers = require("../../helpers");
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
@@ -17,6 +18,7 @@ exports.login = (req, res) => {
       data: { username: "username is missing" }
     });
   }
+
   res.send("NOT IMPLEMENETED");
 };
 
@@ -46,12 +48,14 @@ exports.register = (req, res) => {
       if (result.rowCount === 1) {
         return false;
       } else {
+        const salt = helpers.generateSalt(16);
+        const hash = helpers.sha512(password, salt);
         return await t.one(
           "INSERT INTO users (username, hash, salt) VALUES (${username}, ${hash}, ${salt}) RETURNING id, username",
           {
-            username: username,
-            hash: password,
-            salt: "salt"
+            username,
+            hash,
+            salt
           }
         );
       }
