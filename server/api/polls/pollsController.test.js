@@ -62,6 +62,9 @@ describe("polls controller", () => {
           expect(res.statusCode).toBe(201);
           const id = res.body.data.id;
           expect(res.get("Location")).toBe(`/polls/${id}`);
+        })
+        .catch(err => {
+          console.error(err);
         });
     });
   });
