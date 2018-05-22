@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../../app");
 const db = require("../../database").db;
+const helpers = require("../../helpers");
 
 // TODO problem with all tests because all users are truncated
 // Add users in beforeeach
@@ -8,14 +9,16 @@ const db = require("../../database").db;
 describe("polls controller", () => {
   beforeEach(() => {
     return db.task("es7-task", async t => {
+      const salt = helpers.generateSalt(16);
+      const hash = helpers.sha512("password", salt);
       const nothing = await t.none("TRUNCATE polls RESTART IDENTITY");
       const nothing3 = await t.none("TRUNCATE users RESTART IDENTITY CASCADE");
       const nothing2 = await t.none(
         "INSERT INTO users(username, hash, salt) VALUES (${username}, ${hash}, ${salt})",
         {
           username: "admin",
-          hash: "pass",
-          salt: "salt"
+          hash,
+          salt
         }
       );
       return [];
