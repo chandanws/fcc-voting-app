@@ -20,9 +20,8 @@ exports.polls_detail = (req, res) => {
 };
 
 exports.polls_create = (req, res) => {
-  // later user will be gained from JWT
-  // console.log(res.locals.username);
-  // console.log(res.locals.id);
+  // TODO: later, we will need to implement transaction so that options get added as well
+
   const { title } = req.body;
   if (!title) {
     res.status(400);
@@ -54,14 +53,20 @@ exports.polls_create = (req, res) => {
 
 exports.polls_delete = (req, res) => {
   db
-    .result("DELETE FROM polls WHERE id = $1", [req.params.poll_id])
+    .result("DELETE FROM polls WHERE id = $1 AND user_id = $2", [
+      req.params.poll_id,
+      res.locals.id
+    ])
     .then(result => {
       if (result.rowCount === 1) {
         res.status(204);
         res.json({ status: "success", data: null });
       } else {
-        res.status(409);
-        res.json({ status: "fail", data: { poll: "Poll doesn't exist" } });
+        res.status(400);
+        res.json({
+          status: "fail",
+          data: { poll: "Poll doesn't exist or invalid token" }
+        });
       }
     })
     .catch(err => {

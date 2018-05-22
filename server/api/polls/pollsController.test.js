@@ -24,6 +24,14 @@ describe("polls controller", () => {
             salt: obj.salt
           }
         );
+        const nothing4 = await t.none(
+          "INSERT INTO users(username, hash, salt) VALUES (${username}, ${hash}, ${salt})",
+          {
+            username: "admin1",
+            hash: obj.hash,
+            salt: obj.salt
+          }
+        );
         return [];
       })
       .then(() => {
@@ -114,6 +122,7 @@ describe("polls controller", () => {
         .then(() => {
           return request(app)
             .delete("/polls/1")
+            .set("Authorization", `Bearer ${token}`)
             .then(res => {
               expect(res.statusCode).toBe(204);
             });
@@ -121,11 +130,31 @@ describe("polls controller", () => {
         .catch();
     });
 
-    it("should respond with 409", () => {
+    it("should respond with 400 when poll doesn't exist", () => {
       return request(app)
         .delete("/polls/1")
+        .set("Authorization", `Bearer ${token}`)
         .then(res => {
-          expect(res.statusCode).toBe(409);
+          expect(res.statusCode).toBe(400);
+        });
+    });
+
+    // TODO create this one
+    it("should not delete when not right user", () => {
+      return request(app)
+        .post("/auth/login")
+        .send({ username: "admin1", password: "password" })
+        .then(res => {
+          token2 = res.get("Authorization").split(" ")[1];
+          return token2;
+        })
+        .then(token2 => {
+          return request(app)
+            .delete("/polls/1")
+            .set("Authorization", `Bearer ${token2}`)
+            .then(res => {
+              expect(res.statusCode).toBe(400);
+            });
         });
     });
   });
