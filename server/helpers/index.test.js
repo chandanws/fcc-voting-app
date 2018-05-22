@@ -32,4 +32,16 @@ describe("helpers", () => {
       expect(hash).toBe(data.hash);
     });
   });
+
+  describe("createJWT", () => {
+    it("should create token", () => {
+      const obj = {
+        username: "user1",
+        id: 1
+      };
+      const minutes = 15;
+      const token = helpers.createJWT(obj.username, obj.id, 15, "testsecret");
+      expect(helpers.decodeJWT(token).data).toEqual(obj);
+    });
+  });
 });
