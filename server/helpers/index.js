@@ -12,3 +12,13 @@ exports.generateSalt = length => {
     .toString("hex")
     .slice(0, length);
 };
+
+exports.sha512 = (password, salt) => {
+  const hash = crypto.createHmac("sha512", salt);
+  hash.update(password);
+  const value = hash.digest("hex");
+  return {
+    salt,
+    hash: value
+  };
+};

@@ -21,4 +21,15 @@ describe("helpers", () => {
       expect(string1).not.toBe(string2);
     });
   });
+
+  describe("sha512", () => {
+    const hash =
+      "dd355475c22ced0f78bea94067b2566499bc0150c9e72fe1576e7edec3d8e6307e56ce47f71f2a182247f6c3bd72186f074d19917c44399dd22d720c85ca03c1";
+    const salt = "97afcffe4642da98";
+
+    it("should return correct hash when used with salt", () => {
+      const data = helpers.sha512("password", salt);
+      expect(hash).toBe(data.hash);
+    });
+  });
 });
