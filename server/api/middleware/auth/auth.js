@@ -8,15 +8,16 @@ exports.authenticationRequired = (req, res, next) => {
     // check expiration
     if (decoded.exp - Math.floor(Date.now() / 1000) <= 0) {
       res.status(401);
+      console.log("test");
       return res.json({
         status: "fail",
         data: { authorization: "Missing or Invalid Token" }
       });
     }
-    res.locals.username = decoded.data.username;
     res.locals.id = decoded.data.id;
-    next();
+    return next();
   }
+
   res.status(401);
   return res.json({
     status: "fail",
