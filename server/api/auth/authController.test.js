@@ -68,17 +68,21 @@ describe("register", () => {
 });
 
 describe("login", () => {
+  beforeEach(() => {
+    return db.none("TRUNCATE users RESTART IDENTITY CASCADE");
+  });
+  let wrongUser, wrongPassword, rightUser, rightPassword;
   beforeAll(() => {
-    const wrongUser = "brumbo";
-    const wrongPassword = "goba";
-    const rightUser = "user1";
-    const rightPassword = "pass";
+    wrongUser = "brumbo";
+    wrongPassword = "goba";
+    rightUser = "user1";
+    rightPassword = "pass";
   });
 
   it("should return 400 when password missing", () => {
     return request(app)
       .post("/auth/login")
-      .send({ username: "wrongUser" })
+      .send({ username: wrongUser })
       .then(res => {
         expect(res.statusCode).toBe(400);
       });
@@ -87,17 +91,48 @@ describe("login", () => {
   it("should return 400 when username missing", () => {
     return request(app)
       .post("/auth/login")
-      .send({ password: "wrongPass" })
+      .send({ password: wrongPassword })
       .then(res => {
         expect(res.statusCode).toBe(400);
       });
   });
 
-  // it("should return 400 when username or password is incorrect", () => {
+  it("should return 400 when username or password is incorrect", () => {
+    const salt = helpers.generateSalt(16);
+    const obj = helpers.sha512("Password1", salt);
+    return db
+      .any("INSERT INTO users (username, hash, salt) VALUES ($1, $2, $3)", [
+        rightUser,
+        obj.hash,
+        obj.salt
+      ])
+      .then(() => {
+        return request(app)
+          .post("/auth/login")
+          .send({ username: rightUser, password: "Password2" })
+          .then(res => {
+            expect(res.statusCode).toBe(404);
+          });
+      });
+  });
 
-  // })
-
-  // it("should return 204 and send JWT in authorization when correct", () => {
-
-  // })
+  it("should return 204 and send JWT in authorization when correct", () => {
+    const salt = helpers.generateSalt(16);
+    const obj = helpers.sha512("Password1", salt);
+    return db
+      .any("INSERT INTO users (username, hash, salt) VALUES ($1, $2, $3)", [
+        rightUser,
+        obj.hash,
+        obj.salt
+      ])
+      .then(() => {
+        return request(app)
+          .post("/auth/login")
+          .send({ username: rightUser, password: "Password1" })
+          .then(res => {
+            expect(res.statusCode).toBe(204);
+            expect(res.get("Authorization")).toBeDefined();
+          });
+      });
+  });
 });

@@ -1,9 +1,11 @@
-const jwt = require("jsonwebtoken");
 const db = require("../../database").db;
 const helpers = require("../../helpers");
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
+  let statusCode = 200;
+  let body = {};
+
   if (!password) {
     res.status(400);
     return res.send({
@@ -18,8 +20,33 @@ exports.login = (req, res) => {
       data: { username: "username is missing" }
     });
   }
+  db
+    .oneOrNone("SELECT * FROM users WHERE username = ${username}", {
+      username
+    })
+    .then(data => {
+      // part1 checks if user with username even exists
+      // part2 compared hashed passwords
 
-  res.send("NOT IMPLEMENETED");
+      if (
+        data === null ||
+        helpers.sha512(password, data.salt).hash !== data.hash
+      ) {
+        statusCode = 404;
+        body = {
+          status: "fail",
+          data: { authorization: "Wrong username or password." }
+        };
+        return res.status(statusCode).send(body);
+      }
+      const token = helpers.createJWT(data.username, data.id, 60);
+      res.status(204);
+      res.set("Authorization", `Bearer ${token}`);
+      return res.send({});
+    })
+    .catch(err => {
+      console.error(err);
+    });
 };
 
 exports.register = (req, res) => {
@@ -49,13 +76,13 @@ exports.register = (req, res) => {
         return false;
       } else {
         const salt = helpers.generateSalt(16);
-        const hash = helpers.sha512(password, salt);
+        const obj = helpers.sha512(password, salt);
         return await t.one(
           "INSERT INTO users (username, hash, salt) VALUES (${username}, ${hash}, ${salt}) RETURNING id, username",
           {
             username,
-            hash,
-            salt
+            hash: obj.hash,
+            salt: obj.salt
           }
         );
       }
@@ -68,13 +95,7 @@ exports.register = (req, res) => {
 
       res.status(201);
 
-      const token = jwt.sign(
-        {
-          data: { username: result.username, id: result.id },
-          exp: Math.floor(Date.now() / 1000) + 3600
-        },
-        process.env.TOKEN_SECRET
-      );
+      const token = helpers.createJWT(result.username, result.id, 60);
       res.set("Authorization", `Bearer ${token}`);
       return res.send({
         status: "success",
