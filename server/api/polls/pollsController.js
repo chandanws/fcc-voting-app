@@ -21,7 +21,9 @@ exports.polls_detail = (req, res) => {
 
 exports.polls_create = (req, res) => {
   // later user will be gained from JWT
-  const { title, user_id } = req.body;
+  // console.log(res.locals.username);
+  // console.log(res.locals.id);
+  const { title } = req.body;
   if (!title) {
     res.status(400);
     res.set("Content-Type", "application/json");
@@ -29,14 +31,14 @@ exports.polls_create = (req, res) => {
   }
   db
     .one("INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id", [
-      user_id,
+      res.locals.id,
       title
     ])
     .then(data => {
       res.status(201);
       res.set("Location", `/polls/${data.id}`);
       res.set("Content-Type", "application/json");
-      res.json({
+      return res.json({
         status: "success",
         data
       });

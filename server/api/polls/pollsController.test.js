@@ -7,22 +7,37 @@ const helpers = require("../../helpers");
 // Add users in beforeeach
 
 describe("polls controller", () => {
+  let token;
+  beforeAll(() => {
+    return db
+      .task("create user task", async t => {
+        const salt = helpers.generateSalt(16);
+        const obj = helpers.sha512("password", salt);
+        const nothing3 = await t.none(
+          "TRUNCATE users RESTART IDENTITY CASCADE"
+        );
+        const nothing2 = await t.none(
+          "INSERT INTO users(username, hash, salt) VALUES (${username}, ${hash}, ${salt})",
+          {
+            username: "admin",
+            hash: obj.hash,
+            salt: obj.salt
+          }
+        );
+        return [];
+      })
+      .then(() => {
+        return request(app)
+          .post("/auth/login")
+          .send({ username: "admin", password: "password" })
+          .then(res => {
+            token = res.get("Authorization").split(" ")[1];
+          });
+      });
+  });
+
   beforeEach(() => {
-    return db.task("es7-task", async t => {
-      const salt = helpers.generateSalt(16);
-      const obj = helpers.sha512("password", salt);
-      const nothing = await t.none("TRUNCATE polls RESTART IDENTITY");
-      const nothing3 = await t.none("TRUNCATE users RESTART IDENTITY CASCADE");
-      const nothing2 = await t.none(
-        "INSERT INTO users(username, hash, salt) VALUES (${username}, ${hash}, ${salt})",
-        {
-          username: "admin",
-          hash: obj.hash,
-          salt: obj.salt
-        }
-      );
-      return [];
-    });
+    return db.none("TRUNCATE polls RESTART IDENTITY");
   });
 
   describe("polls_list", () => {
@@ -51,22 +66,42 @@ describe("polls controller", () => {
   });
 
   describe("polls_create", () => {
-    it("should have proper parameters", () => {
+    it("should return 401 if JWT not provided", () => {
       return request(app)
         .post("/polls")
-        .send({
-          user_id: 1,
-          title: "Posted poll title"
-        })
         .then(res => {
-          expect(res.statusCode).toBe(201);
-          const id = res.body.data.id;
-          expect(res.get("Location")).toBe(`/polls/${id}`);
-        })
-        .catch(err => {
-          console.error(err);
+          expect(res.statusCode).toBe(401);
         });
     });
+
+    it("should return 201 when proper parameters", () => {
+      return request(app)
+        .post("/polls")
+        .send({ title: "first poll by admin" })
+        .set("Authorization", `Bearer ${token}`)
+        .then(res => {
+          expect(res.statusCode).toBe(201);
+          expect(res.get("Location")).toBeDefined();
+          expect(res.get("Location")).toBe(`/polls/${res.body.data.id}`);
+        });
+    });
+
+    // it("should have proper parameters", () => {
+    //   return request(app)
+    //     .post("/polls")
+    //     .send({
+    //       user_id: 1,
+    //       title: "Posted poll title"
+    //     })
+    //     .then(res => {
+    //       expect(res.statusCode).toBe(201);
+    //       const id = res.body.data.id;
+    //       expect(res.get("Location")).toBe(`/polls/${id}`);
+    //     })
+    //     .catch(err => {
+    //       console.error(err);
+    //     });
+    // });
   });
 
   describe("polls_delete", () => {
