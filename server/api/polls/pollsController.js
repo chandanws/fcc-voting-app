@@ -18,7 +18,29 @@ exports.polls_list = (req, res) => {
 };
 
 exports.polls_detail = (req, res) => {
-  res.send("polls_detail: NOT IMPPLEMENTED");
+  db
+    .any(
+      "SELECT p.title, o.id AS option_id, o.name, o.value FROM polls AS p INNER JOIN options AS o ON p.id = o.poll_id WHERE p.id = $1",
+      [req.params.poll_id]
+    )
+    .then(data => {
+      const obj = {};
+      obj.title = data[0].title;
+      options = data.map(option => {
+        return {
+          option_id: option.option_id,
+          name: option.name,
+          value: option.value
+        };
+      });
+      obj.options = options;
+      res.status(200);
+      return res.send(obj);
+    })
+    .catch(err => {
+      res.status(500);
+      return res.send(err);
+    });
 };
 
 exports.polls_create = (req, res) => {
