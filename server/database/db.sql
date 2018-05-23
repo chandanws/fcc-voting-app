@@ -12,13 +12,13 @@ CREATE TABLE users (
 
 CREATE TABLE polls (
   id SERIAL PRIMARY KEY,
-  user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  user_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
   title varchar(80)
 );
 
 CREATE TABLE options (
   id SERIAL PRIMARY KEY,
-  poll_id INTEGER REFERENCES users(id) ON DELETE CASCADE,
+  poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE,
   name varchar(80),
   value INTEGER DEFAULT 0
 );
