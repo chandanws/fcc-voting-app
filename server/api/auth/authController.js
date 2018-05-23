@@ -1,5 +1,6 @@
 const db = require("../../database").db;
 const helpers = require("../../helpers");
+const response = require("../../helpers/response");
 
 exports.login = (req, res) => {
   const { username, password } = req.body;
@@ -8,17 +9,11 @@ exports.login = (req, res) => {
 
   if (!password) {
     res.status(400);
-    return res.send({
-      status: "fail",
-      data: { password: "password is missing" }
-    });
+    return res.send(response.failPOST("password", "Password is missing."));
   }
   if (!username) {
     res.status(400);
-    return res.send({
-      status: "fail",
-      data: { username: "username is missing" }
-    });
+    return res.send(response.failPOST("username", "Username is missing."));
   }
   db
     .oneOrNone("SELECT * FROM users WHERE username = ${username}", {
@@ -53,18 +48,11 @@ exports.register = (req, res) => {
   const { username, password } = req.body;
   if (!password) {
     res.status(400);
-    return res.send({
-      status: "fail",
-      data: { password: "password is missing" }
-    });
+    return res.send(response.failPOST("password", "Password is missing."));
   }
-
   if (!username) {
     res.status(400);
-    return res.send({
-      status: "fail",
-      data: { username: "username is missing" }
-    });
+    return res.send(response.failPOST("username", "Username is missing."));
   }
 
   db
@@ -92,20 +80,17 @@ exports.register = (req, res) => {
         res.status(409);
         return res.send("error");
       }
-
       res.status(201);
-
       const token = helpers.createJWT(result.username, result.id, 60);
       res.set("Authorization", `Bearer ${token}`);
       return res.send({
         status: "success",
-        data: {
-          user: "NOT IMPLEMENETED"
-        }
+        data: null
       });
     })
     .catch(err => {
       console.log(err);
-      return res.status(500).send("NOT IMPLEMENTED");
+      res.status(500);
+      return res.send(response.serverError());
     });
 };

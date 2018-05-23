@@ -93,5 +93,42 @@ exports.polls_update = (req, res) => {
 };
 
 exports.polls_vote = (req, res) => {
+  const poll_id = req.params.poll_id;
+  const { option_id } = req.body;
+  if (!option_id) {
+    res.status(400);
+    res.json({
+      status: "fail",
+      data: "Missing option"
+    });
+  }
+
+  db
+    .task(async t => {
+      const nothing = t.none(
+        "UPDATE options SET value = value + 1 WHERE id = $1",
+        [option_id]
+      );
+      return await t.any(
+        "SELECT id, name, value FROM options WHERE poll_id = $1",
+        [poll_id]
+      );
+    })
+    .then(data => {
+      res.status(204);
+      res.json({
+        status: "success",
+        data
+      });
+    })
+    .catch(err => {
+      console.log(err);
+      res.status(500);
+      res.json({
+        status: "error",
+        data: "server error"
+      });
+    });
+
   res.send("polls_vote: NOT IMPLEMENETED");
 };

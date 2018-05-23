@@ -2,10 +2,11 @@ const app = require("../../app");
 const request = require("supertest");
 const db = require("../../database").db;
 const helpers = require("../../helpers");
+const mock = require("../../helpers/mocks");
 
 describe("register", () => {
   beforeEach(() => {
-    return db.none("TRUNCATE users RESTART IDENTITY CASCADE");
+    return mock.clearDatabase();
   });
 
   it("should create new user", () => {
@@ -31,7 +32,7 @@ describe("register", () => {
         expect(res.statusCode).toBe(400);
         expect(res.body).toHaveProperty("status", "fail");
         expect(res.body).toHaveProperty("data", {
-          password: "password is missing"
+          password: "Password is missing."
         });
       });
   });
@@ -44,7 +45,7 @@ describe("register", () => {
         expect(res.statusCode).toBe(400);
         expect(res.body).toHaveProperty("status", "fail");
         expect(res.body).toHaveProperty("data", {
-          username: "username is missing"
+          username: "Username is missing."
         });
       });
   });
