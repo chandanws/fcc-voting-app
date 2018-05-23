@@ -113,7 +113,7 @@ describe("polls controller", () => {
         .post("/polls")
         .send({
           title: "first right poll",
-          options: ["one", "five", "dog", "cat"]
+          options: '["one", "five", "dog", "cat"]'
         })
         .set("Authorization", `Bearer ${token}`)
         .then(res => {
