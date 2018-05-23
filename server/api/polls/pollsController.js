@@ -1,4 +1,5 @@
 const db = require("../../database").db;
+const pgp = require("../../database").pgp;
 
 exports.polls_list = (req, res) => {
   db
@@ -22,17 +23,29 @@ exports.polls_detail = (req, res) => {
 exports.polls_create = (req, res) => {
   // TODO: later, we will need to implement transaction so that options get added as well
 
-  const { title } = req.body;
-  if (!title) {
+  const { title, options } = req.body;
+  if (!title || options === undefined || options.length < 2) {
     res.status(400);
     res.set("Content-Type", "application/json");
     return res.json({ status: "fail", data: { title: "A title is required" } });
   }
+
   db
-    .one("INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id", [
-      res.locals.id,
-      title
-    ])
+    .task(async t => {
+      const poll = await t.one(
+        "INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id",
+        [res.locals.id, title]
+      );
+      const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
+        table: "options"
+      });
+      const values = options.map(option => {
+        return { poll_id: poll.id, name: option };
+      });
+      const query = pgp.helpers.insert(values, cs);
+      const nothing = await t.none(query);
+      return { id: poll.id };
+    })
     .then(data => {
       res.status(201);
       res.set("Location", `/polls/${data.id}`);
@@ -43,6 +56,7 @@ exports.polls_create = (req, res) => {
       });
     })
     .catch(err => {
+      console.log(err);
       res.status(500);
       res.json({
         status: "error",

@@ -1,6 +1,7 @@
 const request = require("supertest");
 const app = require("../../app");
 const db = require("../../database").db;
+const pgp = require("../../database").pgp;
 const helpers = require("../../helpers");
 
 // TODO problem with all tests because all users are truncated
@@ -49,11 +50,22 @@ describe("polls controller", () => {
   });
 
   describe("polls_list", () => {
-    beforeEach(async () => {
-      return await db.none(
-        "INSERT INTO polls(user_id, title) VALUES ($1, $2)",
-        [1, "Example"]
-      );
+    beforeEach(() => {
+      return db.tx(async t => {
+        const poll = await t.one(
+          "INSERT INTO polls(user_id, title) VALUES ($1, $2) RETURNING id",
+          [1, "Example"]
+        );
+        const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
+          table: "options"
+        });
+        const options = ["option1", "dog", "cat", "user"];
+        const values = options.map(option => {
+          return { poll_id: poll.id, name: option };
+        });
+        const query = pgp.helpers.insert(values, cs);
+        const nothing = await t.none(query);
+      });
     });
 
     it("get polls_list", () => {
@@ -82,34 +94,45 @@ describe("polls controller", () => {
         });
     });
 
-    it("should return 201 when proper parameters", () => {
+    it("should return 400 with less than 2 options supplied ", () => {
       return request(app)
         .post("/polls")
         .send({ title: "first poll by admin" })
         .set("Authorization", `Bearer ${token}`)
         .then(res => {
-          expect(res.statusCode).toBe(201);
-          expect(res.get("Location")).toBeDefined();
-          expect(res.get("Location")).toBe(`/polls/${res.body.data.id}`);
+          expect(res.statusCode).toBe(400);
         });
     });
 
-    // it("should have proper parameters", () => {
-    //   return request(app)
-    //     .post("/polls")
-    //     .send({
-    //       user_id: 1,
-    //       title: "Posted poll title"
-    //     })
-    //     .then(res => {
-    //       expect(res.statusCode).toBe(201);
-    //       const id = res.body.data.id;
-    //       expect(res.get("Location")).toBe(`/polls/${id}`);
-    //     })
-    //     .catch(err => {
-    //       console.error(err);
-    //     });
-    // });
+    // it("should not create options when poll data is missing", () => {});
+
+    // it("should not create a poll when options are not created", () => {});
+
+    it("should create options when creating a poll", () => {
+      return request(app)
+        .post("/polls")
+        .send({
+          title: "first right poll",
+          options: ["one", "five", "dog", "cat"]
+        })
+        .set("Authorization", `Bearer ${token}`)
+        .then(res => {
+          expect(res.statusCode).toBe(201);
+          expect(res.get("Location")).toBeDefined();
+          expect(res.get("Location")).toBe(`/polls/${res.body.data.id}`);
+
+          db
+            .any("SELECT name FROM options WHERE poll_id = $1", [
+              res.body.data.id
+            ])
+            .then(data => {
+              console.log(data);
+            })
+            .catch(e => {
+              console.log(options);
+            });
+        });
+    });
   });
 
   describe("polls_delete", () => {
