@@ -46,7 +46,7 @@ describe("polls controller", () => {
   });
 
   beforeEach(() => {
-    return db.none("TRUNCATE polls RESTART IDENTITY");
+    return db.none("TRUNCATE polls RESTART IDENTITY CASCADE");
   });
 
   describe("polls_list", () => {
