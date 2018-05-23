@@ -1,5 +1,6 @@
 const db = require("../../database").db;
 const pgp = require("../../database").pgp;
+const response = require("../../helpers/response");
 
 exports.polls_list = (req, res) => {
   db
@@ -39,7 +40,7 @@ exports.polls_create = (req, res) => {
       const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
         table: "options"
       });
-      const values = options.map(option => {
+      const values = JSON.parse(options).map(option => {
         return { poll_id: poll.id, name: option };
       });
       const query = pgp.helpers.insert(values, cs);
@@ -89,7 +90,26 @@ exports.polls_delete = (req, res) => {
 };
 
 exports.polls_update = (req, res) => {
-  res.send("polls_update: NOT IMPLEMENETED");
+  const { deletedOptions, addedOptions } = req.body;
+  if (deletedOptions && deletedOptions.length >= 1) {
+    // remove values from options
+    deletedOptions.forEach(id => {
+      if (!isNaN(id)) {
+        return db.none("DELETE FROM options WHERE id = $1", [id]);
+      }
+    });
+  }
+  if (addedOptions && addedOptions.length >= 1) {
+    const poll_id = req.params.poll_id;
+    addedOptions.forEach(name => {
+      return db.none("INSERT INTO options (poll_id, name) VALUES ($1, $2)", [
+        poll_id,
+        name
+      ]);
+    });
+  }
+  res.status(204);
+  return res.json({});
 };
 
 exports.polls_vote = (req, res) => {
@@ -115,8 +135,8 @@ exports.polls_vote = (req, res) => {
       );
     })
     .then(data => {
-      res.status(204);
-      res.json({
+      res.status(200);
+      return res.json({
         status: "success",
         data
       });
@@ -124,11 +144,9 @@ exports.polls_vote = (req, res) => {
     .catch(err => {
       console.log(err);
       res.status(500);
-      res.json({
+      return res.json({
         status: "error",
         data: "server error"
       });
     });
-
-  res.send("polls_vote: NOT IMPLEMENETED");
 };
