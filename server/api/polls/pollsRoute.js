@@ -5,7 +5,11 @@ const auth = require("../middleware").auth;
 router.get("/", pollsController.polls_list);
 router.post("/", auth.authenticationRequired, pollsController.polls_create);
 router.get("/:poll_id", pollsController.polls_detail);
-router.put("/:poll_id", pollsController.polls_update);
+router.put(
+  "/:poll_id",
+  auth.authenticationRequired,
+  pollsController.polls_update
+);
 router.delete(
   "/:poll_id",
   auth.authenticationRequired,
