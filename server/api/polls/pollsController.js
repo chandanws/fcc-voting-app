@@ -74,8 +74,7 @@ exports.polls_delete = (req, res) => {
     ])
     .then(result => {
       if (result.rowCount === 1) {
-        res.status(204);
-        res.json({ status: "success", data: null });
+        return res.status(204);
       } else {
         res.status(400);
         res.json({
@@ -91,17 +90,22 @@ exports.polls_delete = (req, res) => {
 
 exports.polls_update = (req, res) => {
   const { deletedOptions, addedOptions } = req.body;
-  if (deletedOptions && deletedOptions.length >= 1) {
+
+  const delOptionsJSON =
+    deletedOptions === undefined ? undefined : JSON.parse(deletedOptions);
+  const addOptionsJSON =
+    addedOptions === undefined ? undefined : JSON.parse(addedOptions);
+  if (delOptionsJSON && delOptionsJSON.length >= 1) {
     // remove values from options
-    deletedOptions.forEach(id => {
+    delOptionsJSON.forEach(id => {
       if (!isNaN(id)) {
         return db.none("DELETE FROM options WHERE id = $1", [id]);
       }
     });
   }
-  if (addedOptions && addedOptions.length >= 1) {
+  if (addOptionsJSON && addOptionsJSON.length >= 1) {
     const poll_id = req.params.poll_id;
-    addedOptions.forEach(name => {
+    addOptionsJSON.forEach(name => {
       return db.none("INSERT INTO options (poll_id, name) VALUES ($1, $2)", [
         poll_id,
         name
