@@ -4,7 +4,7 @@ const response = require("../../helpers/response");
 
 exports.polls_list = (req, res) => {
   db
-    .any("SELECT * FROM polls", [])
+    .any("SELECT id, title FROM polls", [])
     .then(data => {
       res.status(200);
       res.set("Content-Type", "application/json");
