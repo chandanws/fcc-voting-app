@@ -1,0 +1,9 @@
+.button {
+  padding: 1rem;
+  border: 0.1rem solid black;
+  background-color: white;
+}
+
+.button:active {
+  background-color: lightgray;
+}
