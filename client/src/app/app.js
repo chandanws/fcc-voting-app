@@ -1,10 +1,10 @@
 import React from "react";
-import Appbar from "../navigation/appbar/Appbar";
+import Navigation from "../navigation";
 
 const App = props => {
   return (
     <div>
-      <Appbar />
+      <Navigation />
     </div>
   );
 };
