@@ -17,4 +17,8 @@ describe("<Navigation />", () => {
   it("should have one <DrawerComponent />", () => {
     expect(wrapper.find(DrawerComponent).length).toBe(1);
   });
+
+  it("should have one <div className='navigation'>", () => {
+    expect(wrapper.find(".navigation").length).toBe(1);
+  });
 });
