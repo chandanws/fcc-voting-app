@@ -4,9 +4,11 @@
   left: 0;
   width: 50vw;
   height: 100vh;
-  transition: width 1s;
+  transition: left 1s;
+  z-index: 10;
+  background: white;
 }
 
 .drawer--hidden {
-  width: 0vw;
+  left: -50vw;
 }
