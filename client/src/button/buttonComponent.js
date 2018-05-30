@@ -1,12 +1,23 @@
 import React from "react";
-import "./buttonComponent.css";
-const Button = props => {
-  const Component = props.component;
+import PropTypes from "prop-types";
+import "./ButtonComponent.css";
+
+export const Button = ({
+  component: Component,
+  children,
+  className,
+  ...props
+}) => {
   return (
-    <Component onClick={props.onClick} className="button">
-      {props.value}
-    </Component>
+    <Component
+      {...props}
+      className={`button ${className}`}
+      children={children}
+    />
   );
 };
 
-export default Button;
+Button.defaultProps = {
+  component: "button",
+  className: ""
+};
