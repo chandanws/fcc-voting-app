@@ -14,7 +14,10 @@ class Navigation extends Component {
     return (
       <div className="navigation">
         <Appbar toggleDrawer={this.toggleDrawer} />
-        <DrawerComponent drawerOpen={this.state.drawerOpen} />
+        <DrawerComponent
+          toggleDrawer={this.toggleDrawer}
+          drawerOpen={this.state.drawerOpen}
+        />
       </div>
     );
   }
