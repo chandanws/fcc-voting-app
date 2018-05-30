@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import { Typography } from "../../Typography/Typography";
 import { Pie } from "react-chartjs-2";
 import { Form, FormElement } from "../../form/FormComponent";
-import CommentComponent from "../../comment/CommentComponent";
+import CommentContainer from "../../comment/CommentContainer";
 
 export default class PollComponent extends Component {
   state = {
@@ -52,7 +52,10 @@ export default class PollComponent extends Component {
           </label>
         </Form>
         <Typography component="h2" text="Comments" />
-        <CommentComponent />
+        {/* Margin left fix for first element */}
+        <div style={{ marginLeft: "-2rem" }}>
+          <CommentContainer />
+        </div>
       </div>
     );
   }

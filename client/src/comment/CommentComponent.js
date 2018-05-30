@@ -1,7 +1,9 @@
 import React from "react";
+import { Comments } from "./CommentContainer";
 import "./CommentComponent.css";
 
 const CommentComponent = props => {
+  console.log(props.comment);
   return (
     <div className="comment">
       <div className="comment__row">
@@ -21,6 +23,7 @@ const CommentComponent = props => {
         <button className="comment__action">Edit</button>
         <button className="comment__action">Delete</button>
       </div>
+      <Comments comments={props.comment.children} />
     </div>
   );
 };
