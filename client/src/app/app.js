@@ -3,7 +3,7 @@ import Navigation from "../navigation";
 import HomepageComponent from "../pages/homepage/homepageComponent";
 import LoginComponent from "../pages/login/loginComponent";
 import RegisterComponent from "../pages/register/registerComponent";
-import { BrowserRouter as Router, Route, Link } from "react-router-dom";
+import { BrowserRouter as Router, Route } from "react-router-dom";
 
 const App = props => {
   return (

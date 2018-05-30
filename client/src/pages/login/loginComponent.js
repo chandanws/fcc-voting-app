@@ -1,6 +1,5 @@
 import React, { Component } from "react";
 import { Typography } from "../../Typography/Typography";
-import { Button } from "../../button/ButtonComponent";
 import { FormElement, Form } from "../../form/FormComponent";
 
 class LoginComponent extends Component {
