@@ -21,4 +21,14 @@ describe("<Navigation />", () => {
   it("should have one <div className='navigation'>", () => {
     expect(wrapper.find(".navigation").length).toBe(1);
   });
+
+  it("clicking toggledrawer should change state", () => {
+    expect(wrapper.state().drawerOpen).toBe(false);
+    wrapper.instance().toggleDrawer();
+    wrapper.update();
+    expect(wrapper.state().drawerOpen).toBe(true);
+    wrapper.instance().toggleDrawer();
+    wrapper.update();
+    expect(wrapper.state().drawerOpen).toBe(false);
+  });
 });
