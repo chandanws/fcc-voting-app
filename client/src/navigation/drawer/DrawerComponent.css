@@ -1,14 +1,18 @@
-.drawer {
+.drawer-base {
   position: absolute;
   top: 8rem;
-  left: 0;
-  width: 50vw;
   height: calc(100vh - 8rem);
-  transition: left 0.5s;
+  width: 50vw;
   z-index: 10;
-  background: white;
+  transition: left 0.5s;
+}
+
+.drawer {
+  left: 0;
+
   border: 1px solid black;
   border-top: 0;
+  background: white;
 }
 
 .drawer--hidden {
@@ -16,10 +20,7 @@
 }
 
 .not-drawer {
-  width: 50vw;
-  position: absolute;
-  top: 8rem;
-  height: calc(100vh - 8rem);
+  background: rgba(0, 0, 0, 0.7);
   left: 50vw;
 }
 
