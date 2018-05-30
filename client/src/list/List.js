@@ -1,15 +1,32 @@
 import React, { Component } from "react";
+import PropTypes from "prop-types";
+import { useModifierWithBlock } from "../helpers/helpers";
 import "./List.css";
 
-export const ListItem = ({ children }) => {
-  return <li className="list__item">{children}</li>;
+export const ListItem = ({ children, modifiers }) => {
+  const classes = useModifierWithBlock("list__item", modifiers);
+  return <li className={`${classes}`}>{children}</li>;
 };
 
-class List extends Component {
-  static Item = ListItem;
-  render() {
-    return <ul className="list">{this.props.children}</ul>;
-  }
-}
+ListItem.propTypes = {
+  modifiers: PropTypes.arrayOf(PropTypes.string)
+};
+
+ListItem.defaultProps = {
+  modifiers: []
+};
+
+const List = ({ children, modifiers }) => {
+  const classes = useModifierWithBlock("list", modifiers);
+  return <ul className={`${classes}`}>{children}</ul>;
+};
+
+List.propTypes = {
+  modifiers: PropTypes.arrayOf(PropTypes.string)
+};
+
+List.defaultProps = {
+  modifiers: []
+};
 
 export default List;
