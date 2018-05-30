@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import { Typography } from "../../Typography/Typography";
 import { Button } from "../../button/ButtonComponent";
-import "./registerComponent.css";
 import { Form, FormElement } from "../../form/FormComponent";
 
 class RegisterComponent extends Component {
