@@ -14,7 +14,12 @@ const Appbar = props => {
         Menu
       </Button>
       {/* Later add component Link to button */}
-      <Button modifiers={["stroked"]} className="appbar__button">
+      <Button
+        component={Link}
+        to="/"
+        modifiers={["stroked"]}
+        className="appbar__button"
+      >
         Home
       </Button>
     </div>
