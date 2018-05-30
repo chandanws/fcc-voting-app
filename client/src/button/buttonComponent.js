@@ -14,7 +14,7 @@ export const Button = ({
   return (
     <Component
       {...props}
-      className={`button ${className}`}
+      className={`${classes} ${className}`}
       children={children}
     />
   );
