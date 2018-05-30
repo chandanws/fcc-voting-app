@@ -15,8 +15,12 @@ class LoginComponent extends Component {
     console.log(this.state);
   };
 
-  handleChange = name => event => {
-    this.setState({ [name]: event.target.value });
+  handleChange = id => event => {
+    if (id === 1) {
+      return this.setState({ username: event.target.value });
+    } else {
+      return this.setState({ password: event.target.value });
+    }
   };
 
   render() {
@@ -25,17 +29,18 @@ class LoginComponent extends Component {
         <Typography component="h1" text="Login" />
         <Form onSubmit={this.handleSubmit}>
           <FormElement
+            id={1}
             onChange={this.handleChange}
             value={this.state.username}
             label="username"
           />
           <FormElement
+            id={2}
             onChange={this.handleChange}
             value={this.state.password}
             label="password"
             type="password"
           />
-          <input className="form__submit" type="submit" value="submit" />
         </Form>
       </div>
     );
