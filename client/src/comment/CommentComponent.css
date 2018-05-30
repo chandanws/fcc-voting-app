@@ -1,0 +1,35 @@
+.comment {
+  display: flex;
+  flex-direction: column;
+  font-size: 1.8rem;
+  text-align: center;
+}
+
+.comment__row {
+  display: flex;
+  flex-direction: row;
+  border: 1px solid black;
+  align-items: center;
+}
+
+.comment__hidden {
+  padding: 1rem 2rem;
+  background-color: lightblue;
+}
+
+.comment__meta {
+  margin-left: 1rem;
+}
+
+.comment__user {
+}
+
+.comment__paragraph {
+  margin-left: 1rem;
+}
+
+.comment__action {
+  padding: 1rem 2rem;
+  flex-grow: 1;
+  border: 1px solid black;
+}
