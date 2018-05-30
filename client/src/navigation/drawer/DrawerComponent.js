@@ -5,7 +5,6 @@ const DrawerComponent = props => {
   const modifiers = props.drawerOpen ? [] : ["hidden"];
   const classesDrawer = useModifierWithBlock("drawer", modifiers);
   const classesNotDrawer = useModifierWithBlock("not-drawer", modifiers);
-  console.log(classesNotDrawer);
   return (
     <div className="drawer-wrapper">
       <div className={classesDrawer}>Drawer Component</div>
