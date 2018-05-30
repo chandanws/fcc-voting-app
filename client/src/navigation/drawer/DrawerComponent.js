@@ -7,8 +7,11 @@ const DrawerComponent = props => {
   const classesNotDrawer = useModifierWithBlock("not-drawer", modifiers);
   return (
     <div className="drawer-wrapper">
-      <div className={classesDrawer}>Drawer Component</div>
-      <div onClick={props.toggleDrawer} className={classesNotDrawer} />
+      <div className={`drawer-base ${classesDrawer}`}>Drawer Component</div>
+      <div
+        onClick={props.toggleDrawer}
+        className={`drawer-base ${classesNotDrawer}`}
+      />
     </div>
   );
 };
