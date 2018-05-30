@@ -1,7 +1,10 @@
 .appbar {
+  height: 8rem;
+  padding: 2rem 0;
   border-bottom: 1px solid black;
 }
 
 .appbar__button {
-  margin: 2rem;
+  margin: 0 2rem;
+  width: 20%;
 }
