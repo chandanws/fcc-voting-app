@@ -1,3 +1,7 @@
+.appbar {
+  border-bottom: 1px solid black;
+}
+
 .appbar__button {
-  margin: 0 1rem;
+  margin: 2rem;
 }
