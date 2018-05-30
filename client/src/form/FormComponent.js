@@ -8,6 +8,7 @@ export const Form = ({ children, ...props }) => {
   return (
     <form className="form" {...props}>
       {children}
+      <input className="form__submit" type="submit" value="submit" />
     </form>
   );
 };
@@ -16,7 +17,7 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export const FormElement = ({ label, type, onChange, value }) => {
+export const FormElement = ({ label, type, onChange, value, id }) => {
   return (
     <div className="form__wrapper">
       <label className="form__label">{label}</label>
@@ -24,7 +25,7 @@ export const FormElement = ({ label, type, onChange, value }) => {
         type={type}
         className="form__input"
         value={value}
-        onChange={onChange(label)}
+        onChange={onChange(id)}
       />
     </div>
   );
