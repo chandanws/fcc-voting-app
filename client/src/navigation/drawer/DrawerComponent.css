@@ -1,14 +1,27 @@
 .drawer {
   position: absolute;
-  top: 0;
+  top: 9rem;
   left: 0;
   width: 50vw;
-  height: 100vh;
-  transition: left 1s;
+  height: calc(100vh - 9rem);
+  transition: left 0.5s;
   z-index: 10;
   background: white;
+  border: 1px solid black;
 }
 
 .drawer--hidden {
-  left: -50vw;
+  left: -60vw;
+}
+
+.not-drawer {
+  width: 50vw;
+  position: absolute;
+  top: 9rem;
+  height: calc(100vh - 9rem);
+  left: 50vw;
+}
+
+.not-drawer--hidden {
+  left: -60vw;
 }
