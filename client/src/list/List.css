@@ -1,6 +1,5 @@
 .list {
   font-size: 2rem;
-  border: 1px solid black;
   display: flex;
   flex-direction: column;
   padding: 1rem;
@@ -11,4 +10,8 @@
   border: 1px solid black;
   margin: 1rem 0;
   padding: 1rem;
+}
+
+.list--bordered {
+  border: 1px solid black;
 }
