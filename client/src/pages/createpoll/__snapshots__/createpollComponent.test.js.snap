@@ -1,0 +1,877 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CreatePollComponent /> should render correctly 1`] = `
+ShallowWrapper {
+  "length": 1,
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CreatePollComponent />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Typography
+          component="h1"
+          text="Login"
+/>,
+        <Form
+          id={1}
+          onSubmit={[Function]}
+>
+          <Unknown
+                    id={1}
+                    label="title"
+                    onChange={[Function]}
+                    type="text"
+                    value={undefined}
+          />
+          <div
+                    className="form-wrapper--remove"
+          >
+                    <Unknown
+                              id={0}
+                              label="option"
+                              onChange={[Function]}
+                              type="text"
+                              value="option1"
+                    />
+                    <button
+                              onClick={[Function]}
+                              style={
+                                        Object {
+                                                  "alignSelf": "center",
+                                                  "backgroundColor": "lightgrey",
+                                                }
+                              }
+                    >
+                              x
+                    </button>
+          </div>
+          <div
+                    className="form-wrapper--remove"
+          >
+                    <Unknown
+                              id={1}
+                              label="option"
+                              onChange={[Function]}
+                              type="text"
+                              value="option2"
+                    />
+                    <button
+                              onClick={[Function]}
+                              style={
+                                        Object {
+                                                  "alignSelf": "center",
+                                                  "backgroundColor": "lightgrey",
+                                                }
+                              }
+                    >
+                              x
+                    </button>
+          </div>
+          <div
+                    className="form-wrapper--remove"
+          >
+                    <Unknown
+                              id={2}
+                              label="option"
+                              onChange={[Function]}
+                              type="text"
+                              value="option3"
+                    />
+                    <button
+                              onClick={[Function]}
+                              style={
+                                        Object {
+                                                  "alignSelf": "center",
+                                                  "backgroundColor": "lightgrey",
+                                                }
+                              }
+                    >
+                              x
+                    </button>
+          </div>
+          <button
+                    onClick={[Function]}
+                    type="button"
+          >
+                    Add option
+          </button>
+</Form>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "component": "h1",
+          "text": "Login",
+        },
+        "ref": null,
+        "rendered": null,
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "function",
+        "props": Object {
+          "children": Array [
+            <Unknown
+              id={1}
+              label="title"
+              onChange={[Function]}
+              type="text"
+              value={undefined}
+/>,
+            Array [
+              <div
+                className="form-wrapper--remove"
+>
+                <Unknown
+                                id={0}
+                                label="option"
+                                onChange={[Function]}
+                                type="text"
+                                value="option1"
+                />
+                <button
+                                onClick={[Function]}
+                                style={
+                                                Object {
+                                                                "alignSelf": "center",
+                                                                "backgroundColor": "lightgrey",
+                                                              }
+                                }
+                >
+                                x
+                </button>
+</div>,
+              <div
+                className="form-wrapper--remove"
+>
+                <Unknown
+                                id={1}
+                                label="option"
+                                onChange={[Function]}
+                                type="text"
+                                value="option2"
+                />
+                <button
+                                onClick={[Function]}
+                                style={
+                                                Object {
+                                                                "alignSelf": "center",
+                                                                "backgroundColor": "lightgrey",
+                                                              }
+                                }
+                >
+                                x
+                </button>
+</div>,
+              <div
+                className="form-wrapper--remove"
+>
+                <Unknown
+                                id={2}
+                                label="option"
+                                onChange={[Function]}
+                                type="text"
+                                value="option3"
+                />
+                <button
+                                onClick={[Function]}
+                                style={
+                                                Object {
+                                                                "alignSelf": "center",
+                                                                "backgroundColor": "lightgrey",
+                                                              }
+                                }
+                >
+                                x
+                </button>
+</div>,
+            ],
+            <button
+              onClick={[Function]}
+              type="button"
+>
+              Add option
+</button>,
+          ],
+          "id": 1,
+          "onSubmit": [Function],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "function",
+            "props": Object {
+              "id": 1,
+              "label": "title",
+              "onChange": [Function],
+              "type": "text",
+              "value": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <Unknown
+                  id={0}
+                  label="option"
+                  onChange={[Function]}
+                  type="text"
+                  value="option1"
+/>,
+                <button
+                  onClick={[Function]}
+                  style={
+                                    Object {
+                                                      "alignSelf": "center",
+                                                      "backgroundColor": "lightgrey",
+                                                    }
+                  }
+>
+                  x
+</button>,
+              ],
+              "className": "form-wrapper--remove",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "id": 0,
+                  "label": "option",
+                  "onChange": [Function],
+                  "type": "text",
+                  "value": "option1",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "x",
+                  "onClick": [Function],
+                  "style": Object {
+                    "alignSelf": "center",
+                    "backgroundColor": "lightgrey",
+                  },
+                },
+                "ref": null,
+                "rendered": "x",
+                "type": "button",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <Unknown
+                  id={1}
+                  label="option"
+                  onChange={[Function]}
+                  type="text"
+                  value="option2"
+/>,
+                <button
+                  onClick={[Function]}
+                  style={
+                                    Object {
+                                                      "alignSelf": "center",
+                                                      "backgroundColor": "lightgrey",
+                                                    }
+                  }
+>
+                  x
+</button>,
+              ],
+              "className": "form-wrapper--remove",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "id": 1,
+                  "label": "option",
+                  "onChange": [Function],
+                  "type": "text",
+                  "value": "option2",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "x",
+                  "onClick": [Function],
+                  "style": Object {
+                    "alignSelf": "center",
+                    "backgroundColor": "lightgrey",
+                  },
+                },
+                "ref": null,
+                "rendered": "x",
+                "type": "button",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                <Unknown
+                  id={2}
+                  label="option"
+                  onChange={[Function]}
+                  type="text"
+                  value="option3"
+/>,
+                <button
+                  onClick={[Function]}
+                  style={
+                                    Object {
+                                                      "alignSelf": "center",
+                                                      "backgroundColor": "lightgrey",
+                                                    }
+                  }
+>
+                  x
+</button>,
+              ],
+              "className": "form-wrapper--remove",
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "function",
+                "props": Object {
+                  "id": 2,
+                  "label": "option",
+                  "onChange": [Function],
+                  "type": "text",
+                  "value": "option3",
+                },
+                "ref": null,
+                "rendered": null,
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "host",
+                "props": Object {
+                  "children": "x",
+                  "onClick": [Function],
+                  "style": Object {
+                    "alignSelf": "center",
+                    "backgroundColor": "lightgrey",
+                  },
+                },
+                "ref": null,
+                "rendered": "x",
+                "type": "button",
+              },
+            ],
+            "type": "div",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Add option",
+              "onClick": [Function],
+              "type": "button",
+            },
+            "ref": null,
+            "rendered": "Add option",
+            "type": "button",
+          },
+        ],
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Typography
+            component="h1"
+            text="Login"
+/>,
+          <Form
+            id={1}
+            onSubmit={[Function]}
+>
+            <Unknown
+                        id={1}
+                        label="title"
+                        onChange={[Function]}
+                        type="text"
+                        value={undefined}
+            />
+            <div
+                        className="form-wrapper--remove"
+            >
+                        <Unknown
+                                    id={0}
+                                    label="option"
+                                    onChange={[Function]}
+                                    type="text"
+                                    value="option1"
+                        />
+                        <button
+                                    onClick={[Function]}
+                                    style={
+                                                Object {
+                                                            "alignSelf": "center",
+                                                            "backgroundColor": "lightgrey",
+                                                          }
+                                    }
+                        >
+                                    x
+                        </button>
+            </div>
+            <div
+                        className="form-wrapper--remove"
+            >
+                        <Unknown
+                                    id={1}
+                                    label="option"
+                                    onChange={[Function]}
+                                    type="text"
+                                    value="option2"
+                        />
+                        <button
+                                    onClick={[Function]}
+                                    style={
+                                                Object {
+                                                            "alignSelf": "center",
+                                                            "backgroundColor": "lightgrey",
+                                                          }
+                                    }
+                        >
+                                    x
+                        </button>
+            </div>
+            <div
+                        className="form-wrapper--remove"
+            >
+                        <Unknown
+                                    id={2}
+                                    label="option"
+                                    onChange={[Function]}
+                                    type="text"
+                                    value="option3"
+                        />
+                        <button
+                                    onClick={[Function]}
+                                    style={
+                                                Object {
+                                                            "alignSelf": "center",
+                                                            "backgroundColor": "lightgrey",
+                                                          }
+                                    }
+                        >
+                                    x
+                        </button>
+            </div>
+            <button
+                        onClick={[Function]}
+                        type="button"
+            >
+                        Add option
+            </button>
+</Form>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "component": "h1",
+            "text": "Login",
+          },
+          "ref": null,
+          "rendered": null,
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "function",
+          "props": Object {
+            "children": Array [
+              <Unknown
+                id={1}
+                label="title"
+                onChange={[Function]}
+                type="text"
+                value={undefined}
+/>,
+              Array [
+                <div
+                  className="form-wrapper--remove"
+>
+                  <Unknown
+                                    id={0}
+                                    label="option"
+                                    onChange={[Function]}
+                                    type="text"
+                                    value="option1"
+                  />
+                  <button
+                                    onClick={[Function]}
+                                    style={
+                                                      Object {
+                                                                        "alignSelf": "center",
+                                                                        "backgroundColor": "lightgrey",
+                                                                      }
+                                    }
+                  >
+                                    x
+                  </button>
+</div>,
+                <div
+                  className="form-wrapper--remove"
+>
+                  <Unknown
+                                    id={1}
+                                    label="option"
+                                    onChange={[Function]}
+                                    type="text"
+                                    value="option2"
+                  />
+                  <button
+                                    onClick={[Function]}
+                                    style={
+                                                      Object {
+                                                                        "alignSelf": "center",
+                                                                        "backgroundColor": "lightgrey",
+                                                                      }
+                                    }
+                  >
+                                    x
+                  </button>
+</div>,
+                <div
+                  className="form-wrapper--remove"
+>
+                  <Unknown
+                                    id={2}
+                                    label="option"
+                                    onChange={[Function]}
+                                    type="text"
+                                    value="option3"
+                  />
+                  <button
+                                    onClick={[Function]}
+                                    style={
+                                                      Object {
+                                                                        "alignSelf": "center",
+                                                                        "backgroundColor": "lightgrey",
+                                                                      }
+                                    }
+                  >
+                                    x
+                  </button>
+</div>,
+              ],
+              <button
+                onClick={[Function]}
+                type="button"
+>
+                Add option
+</button>,
+            ],
+            "id": 1,
+            "onSubmit": [Function],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "function",
+              "props": Object {
+                "id": 1,
+                "label": "title",
+                "onChange": [Function],
+                "type": "text",
+                "value": undefined,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <Unknown
+                    id={0}
+                    label="option"
+                    onChange={[Function]}
+                    type="text"
+                    value="option1"
+/>,
+                  <button
+                    onClick={[Function]}
+                    style={
+                                        Object {
+                                                            "alignSelf": "center",
+                                                            "backgroundColor": "lightgrey",
+                                                          }
+                    }
+>
+                    x
+</button>,
+                ],
+                "className": "form-wrapper--remove",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "id": 0,
+                    "label": "option",
+                    "onChange": [Function],
+                    "type": "text",
+                    "value": "option1",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "x",
+                    "onClick": [Function],
+                    "style": Object {
+                      "alignSelf": "center",
+                      "backgroundColor": "lightgrey",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": "x",
+                  "type": "button",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <Unknown
+                    id={1}
+                    label="option"
+                    onChange={[Function]}
+                    type="text"
+                    value="option2"
+/>,
+                  <button
+                    onClick={[Function]}
+                    style={
+                                        Object {
+                                                            "alignSelf": "center",
+                                                            "backgroundColor": "lightgrey",
+                                                          }
+                    }
+>
+                    x
+</button>,
+                ],
+                "className": "form-wrapper--remove",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "id": 1,
+                    "label": "option",
+                    "onChange": [Function],
+                    "type": "text",
+                    "value": "option2",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "x",
+                    "onClick": [Function],
+                    "style": Object {
+                      "alignSelf": "center",
+                      "backgroundColor": "lightgrey",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": "x",
+                  "type": "button",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  <Unknown
+                    id={2}
+                    label="option"
+                    onChange={[Function]}
+                    type="text"
+                    value="option3"
+/>,
+                  <button
+                    onClick={[Function]}
+                    style={
+                                        Object {
+                                                            "alignSelf": "center",
+                                                            "backgroundColor": "lightgrey",
+                                                          }
+                    }
+>
+                    x
+</button>,
+                ],
+                "className": "form-wrapper--remove",
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "function",
+                  "props": Object {
+                    "id": 2,
+                    "label": "option",
+                    "onChange": [Function],
+                    "type": "text",
+                    "value": "option3",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "children": "x",
+                    "onClick": [Function],
+                    "style": Object {
+                      "alignSelf": "center",
+                      "backgroundColor": "lightgrey",
+                    },
+                  },
+                  "ref": null,
+                  "rendered": "x",
+                  "type": "button",
+                },
+              ],
+              "type": "div",
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "Add option",
+                "onClick": [Function],
+                "type": "button",
+              },
+              "ref": null,
+              "rendered": "Add option",
+              "type": "button",
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+      },
+    },
+  },
+}
+`;
