@@ -11,6 +11,16 @@
   flex-direction: column;
 }
 
+.form-wrapper--remove {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+}
+
+.form-wrapper--remove:first-child {
+  width: 90%;
+}
+
 .form__label {
   text-transform: capitalize;
   font-size: 1.5rem;
