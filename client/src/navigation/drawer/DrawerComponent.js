@@ -1,7 +1,7 @@
 import React from "react";
 import "./DrawerComponent.css";
 import { useModifierWithBlock } from "../../helpers/helpers";
-import List, { ListItem } from "../../list/List";
+import List, { ListItem } from "../../list/ListComponent";
 import { Button } from "../../button/ButtonComponent";
 
 const DrawerComponent = props => {

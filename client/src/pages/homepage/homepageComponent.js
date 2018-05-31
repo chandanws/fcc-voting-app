@@ -1,6 +1,6 @@
 import React from "react";
 import { Typography } from "../../Typography/Typography";
-import List, { ListItem } from "../../list/List";
+import List, { ListItem } from "../../list/ListComponent";
 import { Button } from "../../button/ButtonComponent";
 import { Link } from "react-router-dom";
 

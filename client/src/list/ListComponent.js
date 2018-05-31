@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
 import { useModifierWithBlock } from "../helpers/helpers";
-import "./List.css";
+import "./ListComponent.css";
 
 export const ListItem = ({ children, modifiers }) => {
   const classes = useModifierWithBlock("list__item", modifiers);

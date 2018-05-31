@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import Appbar from "./appbar/Appbar";
+import Appbar from "./appbar/AppbarComponent";
 import DrawerComponent from "./drawer/DrawerComponent";
 import "./NavigationComponent.css";
 
