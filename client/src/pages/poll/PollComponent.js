@@ -7,17 +7,17 @@ import CommentContainer from "../../comment/CommentContainer";
 
 export default class PollComponent extends Component {
   state = {
-    value: "something"
-  };
-  data = {
-    labels: ["Green", "Blue", "Black"],
-    datasets: [
-      {
-        data: [300, 200, 50],
-        backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
-        hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
-      }
-    ]
+    value: "something",
+    dummyData: {
+      labels: ["Green", "Blue", "Black"],
+      datasets: [
+        {
+          data: [300, 200, 50],
+          backgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"],
+          hoverBackgroundColor: ["#FF6384", "#36A2EB", "#FFCE56"]
+        }
+      ]
+    }
   };
 
   handleChange = e => this.setState({ value: e.target.value });
@@ -31,7 +31,7 @@ export default class PollComponent extends Component {
       <div>
         {/* TODO: Change text to be based on data from redux*/}
         <Typography component="h1" text="Best Actor" />
-        <Pie width={200} data={this.data} />
+        <Pie width={200} data={this.state.dummyData} />
         <Form onSubmit={this.handleSubmit}>
           <label className="form__label">
             Select option:
