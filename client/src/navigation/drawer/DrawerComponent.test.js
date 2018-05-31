@@ -3,8 +3,8 @@ import DrawerComponent from "./DrawerComponent";
 import { shallow } from "enzyme";
 
 describe("<DrawerComponent />", () => {
-  it("should havea div element with className drawer", () => {
+  it("should render correclty", () => {
     const wrapper = shallow(<DrawerComponent />);
-    expect(wrapper.find(".drawer").length).toBe(1);
+    expect(wrapper).toMatchSnapshot();
   });
 });

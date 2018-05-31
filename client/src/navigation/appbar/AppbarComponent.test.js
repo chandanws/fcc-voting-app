@@ -1,15 +1,11 @@
 import React from "react";
-import Appbar from "./Appbar";
+import Appbar from "./AppbarComponent";
 import { shallow } from "enzyme";
+import toJson from "enzyme-to-json";
 
 describe("<Appbar />", () => {
-  let wrapper;
-
-  beforeEach(() => {
-    wrapper = shallow(<Appbar />);
-  });
-
-  it("Should have 1 div ", () => {
-    expect(wrapper.find("div").length).toBe(1);
+  it("should render correctly", () => {
+    const wrapper = shallow(<Appbar />);
+    expect(wrapper).toMatchSnapshot();
   });
 });
