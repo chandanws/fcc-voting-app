@@ -1,0 +1,95 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<PollComponent /> should render correctly 1`] = `
+<div>
+  <Typography
+    component="h1"
+    text="Best Actor"
+  />
+  <Pie
+    data={
+      Object {
+        "datasets": Array [
+          Object {
+            "backgroundColor": Array [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+            ],
+            "data": Array [
+              300,
+              200,
+              50,
+            ],
+            "hoverBackgroundColor": Array [
+              "#FF6384",
+              "#36A2EB",
+              "#FFCE56",
+            ],
+          },
+        ],
+        "labels": Array [
+          "Green",
+          "Blue",
+          "Black",
+        ],
+      }
+    }
+    width={200}
+  />
+  <Form
+    onSubmit={[Function]}
+  >
+    <label
+      className="form__label"
+    >
+      Select option:
+      <select
+        onChange={[Function]}
+        style={
+          Object {
+            "border": "1px solid black",
+            "fontSize": "2rem",
+            "marginLeft": "1rem",
+          }
+        }
+        value="something"
+      >
+        <option
+          value="something"
+        >
+          Something
+        </option>
+        <option
+          value="user"
+        >
+          User
+        </option>
+        <option
+          value="weird"
+        >
+          Weird
+        </option>
+        <option
+          value="anti"
+        >
+          Anti
+        </option>
+      </select>
+    </label>
+  </Form>
+  <Typography
+    component="h2"
+    text="Comments"
+  />
+  <div
+    style={
+      Object {
+        "marginLeft": "-2rem",
+      }
+    }
+  >
+    <CommentContainer />
+  </div>
+</div>
+`;
