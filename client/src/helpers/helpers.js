@@ -28,3 +28,13 @@ export const toggleElementInArray = (array, element) => {
   const newArray = array.slice(0, index).concat(array.slice(index + 1));
   return newArray;
 };
+
+/**
+ *
+ * @param {Array} array
+ * @param {Number} index integer index of array
+ * @return {Array} passed array without element at passed index
+ */
+export const removeElementFromArray = (array, index) => {
+  return array.slice(0, index).concat(array.slice(index + 1));
+};

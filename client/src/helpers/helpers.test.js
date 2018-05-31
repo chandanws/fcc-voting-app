@@ -1,4 +1,8 @@
-import { useModifierWithBlock, toggleElementInArray } from "./helpers";
+import {
+  useModifierWithBlock,
+  toggleElementInArray,
+  removeElementFromArray
+} from "./helpers";
 
 describe("useModifierWithBlock", () => {
   it("should return button, when no modifier specified", () => {
@@ -32,5 +36,24 @@ describe("toggleElementInArray", () => {
 
   it("should return proper array when index at 0", () => {
     expect(toggleElementInArray(oldArray, 7)).toEqual([1, 3, 5]);
+  });
+});
+
+describe("removeElementFromArray", () => {
+  let oldArray;
+  beforeAll(() => {
+    oldArray = [1, 2, 3, 4];
+  });
+
+  it("should return same array when index too high", () => {
+    expect(removeElementFromArray(oldArray, 7)).toEqual(oldArray);
+  });
+
+  it("should remove 1 when index is 0", () => {
+    expect(removeElementFromArray(oldArray, 0)).toEqual([2, 3, 4]);
+  });
+
+  it("should remove 4 when index is 3", () => {
+    expect(removeElementFromArray(oldArray, 3)).toEqual([1, 2, 3]);
   });
 });
