@@ -1,0 +1,35 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<RegisterComponent /> should render correctly 1`] = `
+<div>
+  <Typography
+    component="h1"
+    text="Login"
+  />
+  <Form
+    onSubmit={[Function]}
+  >
+    <Component
+      id={1}
+      label="username"
+      onChange={[Function]}
+      type="text"
+      value=""
+    />
+    <Component
+      id={2}
+      label="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+    <Component
+      id={3}
+      label="password"
+      onChange={[Function]}
+      type="password"
+      value=""
+    />
+  </Form>
+</div>
+`;
