@@ -40,7 +40,6 @@ class CreatePollComponent extends Component {
 
   render() {
     const options = this.state.options.map((value, index) => {
-      console.log(value);
       return (
         <div className="form-wrapper--remove">
           <FormElement
@@ -63,7 +62,7 @@ class CreatePollComponent extends Component {
     });
     return (
       <div>
-        <Typography component="h1" text="Login" />
+        <Typography component="h1" text="Create New Poll" />
         <Form id={1} onSubmit={this.handleSubmit}>
           <FormElement
             id={1}
