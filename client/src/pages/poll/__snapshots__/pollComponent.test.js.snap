@@ -152,14 +152,6 @@ exports[`<PollComponent /> should render correctly 1`] = `
     component="h2"
     text="Comments"
   />
-  <div
-    style={
-      Object {
-        "marginLeft": "-2rem",
-      }
-    }
-  >
-    <CommentContainer />
-  </div>
+  <CommentContainer />
 </div>
 `;

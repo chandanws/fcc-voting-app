@@ -11,6 +11,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
     onSubmit={[Function]}
   >
     <Component
+      component="input"
       id={1}
       label="title"
       onChange={[Function]}
@@ -20,6 +21,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
       className="form-wrapper--remove"
     >
       <Component
+        component="input"
         id={0}
         label="option"
         onChange={[Function]}
@@ -42,6 +44,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
       className="form-wrapper--remove"
     >
       <Component
+        component="input"
         id={1}
         label="option"
         onChange={[Function]}
@@ -64,6 +67,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
       className="form-wrapper--remove"
     >
       <Component
+        component="input"
         id={2}
         label="option"
         onChange={[Function]}

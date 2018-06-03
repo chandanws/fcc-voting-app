@@ -10,6 +10,7 @@ exports[`<HomepageComponent /> should render correctly 1`] = `
     onSubmit={[Function]}
   >
     <Component
+      component="input"
       id={1}
       label="username"
       onChange={[Function]}
@@ -17,6 +18,7 @@ exports[`<HomepageComponent /> should render correctly 1`] = `
       value=""
     />
     <Component
+      component="input"
       id={2}
       label="password"
       onChange={[Function]}
