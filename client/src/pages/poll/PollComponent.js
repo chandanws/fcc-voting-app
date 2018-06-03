@@ -38,12 +38,17 @@ export default class PollComponent extends Component {
         {/* TODO: Change text to be based on data from redux*/}
         <Typography component="h1" text="Best Actor" />
         <div className="chart-form-wrapper">
-          <ResponsiveContainer aspect={1}>
-            <PieChart style={{ fontSize: "2rem" }} width={800} height={400}>
+          <ResponsiveContainer width={100} aspect={1}>
+            <PieChart style={{ fontSize: "2rem" }} height={400}>
               <Legend verticalAlign="top" height={36} />
-              <Pie label fill="#8884d8" data={this.state.dummyData}>
+              <Pie
+                label
+                fill="#8884d8"
+                dataKey="value"
+                data={this.state.dummyData}
+              >
                 {this.state.dummyData.map((entry, index) => (
-                  <Cell fill={COLORS[index % COLORS.length]} />
+                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
                 ))}
               </Pie>
             </PieChart>
