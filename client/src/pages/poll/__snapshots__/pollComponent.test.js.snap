@@ -155,6 +155,20 @@ exports[`<PollComponent /> should render correctly 1`] = `
     component="h2"
     text="Comments"
   />
+  <form
+    className="comment__form"
+    onSubmit={[Function]}
+  >
+    <textarea
+      className="comment__textarea"
+      onChange={[Function]}
+    />
+    <button
+      className="comment__submit"
+    >
+      Submit
+    </button>
+  </form>
   <CommentContainer />
 </div>
 `;

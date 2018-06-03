@@ -23,7 +23,8 @@ export default class PollComponent extends Component {
       { name: "B", value: 400 },
       { name: "A", value: 200 },
       { name: "C", value: 600 }
-    ]
+    ],
+    replyValue: ""
   };
 
   handleChange = e => this.setState({ value: e.target.value });
@@ -74,7 +75,18 @@ export default class PollComponent extends Component {
           </Form>
         </div>
         <Typography component="h2" text="Comments" />
-        {/* Margin left fix for first element */}
+        <form
+          className="comment__form"
+          onSubmit={e => {
+            e.preventDefault();
+          }}
+        >
+          <textarea
+            className="comment__textarea"
+            onChange={e => this.setState({ replyValue: e.target.value })}
+          />
+          <button className="comment__submit">Submit</button>
+        </form>
 
         <CommentContainer />
       </div>
