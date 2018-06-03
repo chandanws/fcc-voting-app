@@ -19,7 +19,7 @@ exports[`<PollComponent /> should render correctly 1`] = `
       aspect={1}
       debounce={0}
       height="100%"
-      width="100%"
+      width={100}
     >
       <PieChart
         barCategoryGap="10%"
@@ -47,7 +47,6 @@ exports[`<PollComponent /> should render correctly 1`] = `
             "fontSize": "2rem",
           }
         }
-        width={800}
       >
         <Legend
           align="center"
@@ -78,6 +77,7 @@ exports[`<PollComponent /> should render correctly 1`] = `
               },
             ]
           }
+          dataKey="value"
           endAngle={360}
           fill="#8884d8"
           hide={false}
@@ -95,12 +95,15 @@ exports[`<PollComponent /> should render correctly 1`] = `
         >
           <Cell
             fill="#0088FE"
+            key="0"
           />
           <Cell
             fill="#00C49F"
+            key="1"
           />
           <Cell
             fill="#FFBB28"
+            key="2"
           />
         </Pie>
       </PieChart>
