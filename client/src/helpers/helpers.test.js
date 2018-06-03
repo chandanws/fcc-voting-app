@@ -2,7 +2,8 @@ import {
   useModifierWithBlock,
   toggleElementInArray,
   toggleObjectsInArray,
-  removeElementFromArray
+  removeElementFromArray,
+  changeValueInArrayOfObjects
 } from "./helpers";
 
 describe("useModifierWithBlock", () => {
@@ -75,6 +76,34 @@ describe("toggleObjectInArray", () => {
     expect(toggleObjectsInArray(oldArray, 3)).toEqual([
       { id: 1, value: "something" },
       { id: 2, value: "random" }
+    ]);
+  });
+});
+
+describe("toggleObjectInArray", () => {
+  let oldArray;
+  beforeAll(() => {
+    oldArray = [{ id: 1, value: "something" }, { id: 2, value: "something" }];
+  });
+
+  it("should change value in id 1", () => {
+    expect(changeValueInArrayOfObjects(oldArray, 1, "newvalue")).toEqual([
+      { id: 1, value: "newvalue" },
+      { id: 2, value: "something" }
+    ]);
+  });
+
+  it("should not change anything when object with specifid ID not in array", () => {
+    expect(changeValueInArrayOfObjects(oldArray, 5, "newvalue")).toEqual(
+      oldArray
+    );
+  });
+
+  it("should return array with 1 value if initial array is empty", () => {
+    const emptyArray = [];
+    expect(toggleObjectsInArray(emptyArray, 1)).toEqual([
+      ...emptyArray,
+      { id: 1, value: "" }
     ]);
   });
 });

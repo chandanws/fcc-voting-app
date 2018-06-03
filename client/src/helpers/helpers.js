@@ -34,7 +34,7 @@ export const toggleElementInArray = (array, element) => {
  * If object is found it removes it.
  * If object is not found it adds it to the end of the array with the passed id and default empty string value.
  * @param {Array} array containing objects {id: number, value: string}
- * @param {any} element any value that could be in the passed array
+ * @param {Number} id id of the object
  * @return {Array} passed array with either removed or added object
  */
 export const toggleObjectsInArray = (array, id) => {
@@ -48,6 +48,29 @@ export const toggleObjectsInArray = (array, id) => {
     return [...array, { id: id, value: "" }];
   }
   return array.slice(0, index).concat(array.slice(index + 1));
+};
+
+/**
+ * Checks the passed array if it has object with passed id.
+ * If object is found it changes it's value to passed newValue.
+ * If object is not found it returns passed array with no changes.
+ * @param {Array} array containing objects {id: number, value: string}
+ * @param {Number} id id of the object
+ * @param {String} newValue the new value to which it should change
+ * @return {Array} passed array either in same state or with changed object with passed id
+ */
+export const changeValueInArrayOfObjects = (array, id, newValue) => {
+  let index;
+  array.forEach((element, _index) => {
+    if (id === element.id) {
+      index = _index;
+    }
+  });
+  if (index === undefined) {
+    return array;
+  }
+  array[index] = { id: id, value: newValue };
+  return array;
 };
 
 /**
