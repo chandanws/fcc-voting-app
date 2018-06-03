@@ -15,6 +15,7 @@ exports[`<RegisterComponent /> should render correctly 1`] = `
       label="username"
       onChange={[Function]}
       type="text"
+      validation={false}
       value=""
     />
     <Component
@@ -23,6 +24,7 @@ exports[`<RegisterComponent /> should render correctly 1`] = `
       label="password"
       onChange={[Function]}
       type="password"
+      validation={false}
       value=""
     />
     <Component
@@ -31,6 +33,7 @@ exports[`<RegisterComponent /> should render correctly 1`] = `
       label="password"
       onChange={[Function]}
       type="password"
+      validation={true}
       value=""
     />
   </Form>

@@ -32,12 +32,14 @@ class RegisterComponent extends Component {
         <Form onSubmit={this.handleSubmit}>
           <FormElement
             id={1}
+            validation={this.state.username.length > 5}
             onChange={this.handleChange}
             value={this.state.username}
             label="username"
           />
           <FormElement
             id={2}
+            validation={this.state.passwordOne.length > 5}
             onChange={this.handleChange}
             value={this.state.passwordOne}
             label="password"
@@ -45,6 +47,7 @@ class RegisterComponent extends Component {
           />
           <FormElement
             id={3}
+            validation={this.state.passwordOne === this.state.passwordTwo}
             onChange={this.handleChange}
             value={this.state.passwordTwo}
             label="password"
