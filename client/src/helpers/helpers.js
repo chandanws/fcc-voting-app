@@ -50,6 +50,20 @@ export const toggleObjectsInArray = (array, id) => {
   return array.slice(0, index).concat(array.slice(index + 1));
 };
 
+export const objectWithIdInArray = (array, id) => {
+  let index;
+  array.forEach((element, _index) => {
+    if (id === element.id) {
+      index = _index;
+    }
+  });
+  if (index === undefined) {
+    return -1;
+  } else {
+    return index;
+  }
+};
+
 /**
  * Checks the passed array if it has object with passed id.
  * If object is found it changes it's value to passed newValue.

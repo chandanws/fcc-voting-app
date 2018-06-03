@@ -3,7 +3,8 @@ import {
   toggleElementInArray,
   toggleObjectsInArray,
   removeElementFromArray,
-  changeValueInArrayOfObjects
+  changeValueInArrayOfObjects,
+  objectWithIdInArray
 } from "./helpers";
 
 describe("useModifierWithBlock", () => {
@@ -38,6 +39,24 @@ describe("toggleElementInArray", () => {
 
   it("should return proper array when index at 0", () => {
     expect(toggleElementInArray(oldArray, 7)).toEqual([1, 3, 5]);
+  });
+});
+
+describe("objectWithIdInArray(array, id)", () => {
+  let oldArray;
+  beforeAll(() => {
+    oldArray = [
+      { id: 1, value: "something" },
+      { id: 2, value: "random" },
+      { id: 3, value: "creepy" }
+    ];
+  });
+  it("should return -1 when not found", () => {
+    expect(objectWithIdInArray(oldArray, 4)).toBe(-1);
+  });
+
+  it("should return correct index when found", () => {
+    expect(objectWithIdInArray(oldArray, 2)).toBe(1);
   });
 });
 
