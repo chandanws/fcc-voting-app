@@ -3,6 +3,7 @@ import "./DrawerComponent.css";
 import { useModifierWithBlock } from "../../helpers/helpers";
 import List, { ListItem } from "../../list/ListComponent";
 import { Button } from "../../button/ButtonComponent";
+import { Link } from "react-router-dom";
 
 const DrawerComponent = props => {
   const modifiers = props.drawerOpen ? [] : ["hidden"];
@@ -13,10 +14,14 @@ const DrawerComponent = props => {
   const drawerList = true ? (
     <List>
       <ListItem>
-        <Button>Profile</Button>
+        <Button component={Link} to="/profile">
+          Profile
+        </Button>
       </ListItem>
       <ListItem>
-        <Button>New</Button>
+        <Button component={Link} to="/polls/new">
+          New
+        </Button>
       </ListItem>
       <ListItem>
         <Button>Logout</Button>
@@ -25,10 +30,14 @@ const DrawerComponent = props => {
   ) : (
     <List>
       <ListItem>
-        <Button>Register</Button>
+        <Button component={Link} to="/register">
+          Register
+        </Button>
       </ListItem>
       <ListItem>
-        <Button>Login</Button>
+        <Button component={Link} to="/login">
+          Login
+        </Button>
       </ListItem>
     </List>
   );
