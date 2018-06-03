@@ -1,0 +1,70 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Profilecomponent /> should render correctly 1`] = `
+<div>
+  <Typography
+    component="h1"
+    text="Hello Anonymous"
+  />
+  <hr />
+  <Typography
+    component="h2"
+    text="Change password"
+  />
+  <Form
+    onSubmit={[Function]}
+  >
+    <Component
+      component="input"
+      id={1}
+      label="Old Password"
+      onChange={[Function]}
+      type="password"
+      validation=""
+    />
+    <Component
+      component="input"
+      id={2}
+      label="New Password"
+      onChange={[Function]}
+      type="password"
+      validation=""
+    />
+    <Component
+      component="input"
+      id={3}
+      label="New Password"
+      onChange={[Function]}
+      type="password"
+      validation=""
+    />
+  </Form>
+  <Typography
+    component="h2"
+    text="Your polls"
+  />
+  <List
+    modifiers={
+      Array [
+        "bordered",
+      ]
+    }
+  >
+    <Component
+      modifiers={Array []}
+    >
+      Poll1
+    </Component>
+    <Component
+      modifiers={Array []}
+    >
+      Poll1
+    </Component>
+    <Component
+      modifiers={Array []}
+    >
+      Poll1
+    </Component>
+  </List>
+</div>
+`;

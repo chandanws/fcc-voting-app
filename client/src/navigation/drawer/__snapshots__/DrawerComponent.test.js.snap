@@ -15,8 +15,9 @@ exports[`<DrawerComponent /> should render correclty 1`] = `
       >
         <Button
           className=""
-          component="button"
+          component={[Function]}
           modifiers={Array []}
+          to="/profile"
         >
           Profile
         </Button>
@@ -26,8 +27,9 @@ exports[`<DrawerComponent /> should render correclty 1`] = `
       >
         <Button
           className=""
-          component="button"
+          component={[Function]}
           modifiers={Array []}
+          to="/polls/new"
         >
           New
         </Button>
