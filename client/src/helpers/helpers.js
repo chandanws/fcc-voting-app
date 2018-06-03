@@ -30,6 +30,27 @@ export const toggleElementInArray = (array, element) => {
 };
 
 /**
+ * Checks the passed array if it has object with passed id.
+ * If object is found it removes it.
+ * If object is not found it adds it to the end of the array with the passed id and default empty string value.
+ * @param {Array} array containing objects {id: number, value: string}
+ * @param {any} element any value that could be in the passed array
+ * @return {Array} passed array with either removed or added object
+ */
+export const toggleObjectsInArray = (array, id) => {
+  let index;
+  array.forEach((element, _index) => {
+    if (id === element.id) {
+      index = _index;
+    }
+  });
+  if (index === undefined) {
+    return [...array, { id: id, value: "" }];
+  }
+  return array.slice(0, index).concat(array.slice(index + 1));
+};
+
+/**
  *
  * @param {Array} array
  * @param {Number} index integer index of array

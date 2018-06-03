@@ -1,6 +1,7 @@
 import {
   useModifierWithBlock,
   toggleElementInArray,
+  toggleObjectsInArray,
   removeElementFromArray
 } from "./helpers";
 
@@ -36,6 +37,45 @@ describe("toggleElementInArray", () => {
 
   it("should return proper array when index at 0", () => {
     expect(toggleElementInArray(oldArray, 7)).toEqual([1, 3, 5]);
+  });
+});
+
+describe("toggleObjectInArray", () => {
+  let oldArray;
+  beforeAll(() => {
+    oldArray = [
+      { id: 1, value: "something" },
+      { id: 2, value: "random" },
+      { id: 3, value: "creepy" }
+    ];
+  });
+  it("should return array with added object with passed id and empty string value if no element found", () => {
+    expect(toggleObjectsInArray(oldArray, 4)).toEqual([
+      ...oldArray,
+      { id: 4, value: "" }
+    ]);
+  });
+
+  it("should return array with 1 value if initial array is empty", () => {
+    const emptyArray = [];
+    expect(toggleObjectsInArray(emptyArray, 1)).toEqual([
+      ...emptyArray,
+      { id: 1, value: "" }
+    ]);
+  });
+
+  it("should return proper array when index at 0", () => {
+    expect(toggleObjectsInArray(oldArray, 1)).toEqual([
+      { id: 2, value: "random" },
+      { id: 3, value: "creepy" }
+    ]);
+  });
+
+  it("should return proper array when index at max", () => {
+    expect(toggleObjectsInArray(oldArray, 3)).toEqual([
+      { id: 1, value: "something" },
+      { id: 2, value: "random" }
+    ]);
   });
 });
 
