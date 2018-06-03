@@ -1,7 +1,7 @@
 import React from "react";
 import { shallow } from "enzyme";
 import Navigation from "./NavigationComponent";
-import Appbar from "./appbar/Appbar";
+import Appbar from "./appbar/AppbarComponent";
 import DrawerComponent from "./drawer/DrawerComponent";
 
 describe("<Navigation />", () => {
