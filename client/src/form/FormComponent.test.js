@@ -4,8 +4,11 @@ import { shallow } from "enzyme";
 import toJson from "enzyme-to-json";
 
 describe("<Form />", () => {
-  const wrapper = shallow(<Form />).toJson();
-  expect(toJSON(wrapper)).toMatchSnapshot();
+  it("should render correctly", () => {
+    const mockCallback = jest.fn();
+    const wrapper = shallow(<Form onSubmit={mockCallback} />);
+    expect(wrapper).toMatchSnapshot();
+  });
 });
 
-describe("<FormElement />", () => {});
+// describe("<FormElement />", () => {});
