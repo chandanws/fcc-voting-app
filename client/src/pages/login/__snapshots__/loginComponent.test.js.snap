@@ -15,6 +15,7 @@ exports[`<HomepageComponent /> should render correctly 1`] = `
       label="username"
       onChange={[Function]}
       type="text"
+      validation=""
       value=""
     />
     <Component
@@ -23,6 +24,7 @@ exports[`<HomepageComponent /> should render correctly 1`] = `
       label="password"
       onChange={[Function]}
       type="password"
+      validation=""
       value=""
     />
   </Form>

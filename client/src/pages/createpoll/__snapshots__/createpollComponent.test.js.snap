@@ -16,6 +16,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
       label="title"
       onChange={[Function]}
       type="text"
+      validation=""
     />
     <div
       className="form-wrapper--remove"
@@ -27,6 +28,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
         label="option"
         onChange={[Function]}
         type="text"
+        validation=""
         value="option1"
       />
       <button
@@ -51,6 +53,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
         label="option"
         onChange={[Function]}
         type="text"
+        validation=""
         value="option2"
       />
       <button
@@ -75,6 +78,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
         label="option"
         onChange={[Function]}
         type="text"
+        validation=""
         value="option3"
       />
       <button
