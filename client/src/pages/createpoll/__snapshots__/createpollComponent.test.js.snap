@@ -19,6 +19,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
     />
     <div
       className="form-wrapper--remove"
+      key="0"
     >
       <Component
         component="input"
@@ -42,6 +43,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
     </div>
     <div
       className="form-wrapper--remove"
+      key="1"
     >
       <Component
         component="input"
@@ -65,6 +67,7 @@ exports[`<CreatePollComponent /> should render correctly 1`] = `
     </div>
     <div
       className="form-wrapper--remove"
+      key="2"
     >
       <Component
         component="input"

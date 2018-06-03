@@ -41,7 +41,7 @@ class CreatePollComponent extends Component {
   render() {
     const options = this.state.options.map((value, index) => {
       return (
-        <div className="form-wrapper--remove">
+        <div key={index} className="form-wrapper--remove">
           <FormElement
             id={index}
             onChange={this.handleOptionsChange}
