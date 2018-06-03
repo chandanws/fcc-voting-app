@@ -3,12 +3,12 @@
   flex-direction: column;
   font-size: 1.8rem;
   margin-left: 2rem;
+  margin-top: 1rem;
 }
 
 .comment__row {
   display: flex;
   flex-direction: row;
-  border: 1px solid black;
   align-items: center;
 }
 
@@ -29,7 +29,13 @@
 }
 
 .comment__action {
+  margin-right: 1rem;
+  font-size: 1.5rem;
   padding: 1rem 2rem;
-  flex-grow: 1;
-  border: 1px solid black;
+  background-color: whitesmoke;
+  border: 0;
+}
+
+.comment__action:hover {
+  cursor: pointer;
 }
