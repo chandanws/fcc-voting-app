@@ -1,11 +1,7 @@
 .typography--h1 {
-  border: 1px solid black;
-  font-size: 3rem;
-  padding: 1rem;
+  font-size: 4rem;
 }
 
 .typography--h2 {
-  border: 1px solid black;
-  font-size: 2.5rem;
-  padding: 1rem;
+  font-size: 3.5rem;
 }
