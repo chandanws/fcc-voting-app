@@ -1,0 +1,77 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<CommentContainer /> should render correctly 1`] = `
+<div
+  style={
+    Object {
+      "marginLeft": "-2rem",
+    }
+  }
+>
+  <Component
+    closed={Array []}
+    comments={
+      Array [
+        Object {
+          "body": "this is random body",
+          "children": Array [],
+          "id": 1,
+          "username": "user1",
+        },
+        Object {
+          "body": "this is random body",
+          "children": Array [
+            Object {
+              "body": "this is random body",
+              "children": Array [
+                Object {
+                  "body": "this is random body",
+                  "children": Array [],
+                  "id": 30,
+                  "username": "user1",
+                },
+                Object {
+                  "body": "this is random body",
+                  "children": Array [],
+                  "id": 7,
+                  "username": "user1",
+                },
+              ],
+              "id": 5,
+              "username": "user3",
+            },
+            Object {
+              "body": "this is random body",
+              "children": Array [],
+              "id": 4,
+              "username": "user1",
+            },
+          ],
+          "id": 2,
+          "username": "user2",
+        },
+        Object {
+          "body": "this is random body",
+          "children": Array [
+            Object {
+              "body": "this is random body",
+              "children": Array [],
+              "id": 32,
+              "username": "user1",
+            },
+          ],
+          "id": 31,
+          "username": "user1",
+        },
+        Object {
+          "body": "this is random body",
+          "children": Array [],
+          "id": 33,
+          "username": "user1",
+        },
+      ]
+    }
+    toggleTree={[Function]}
+  />
+</div>
+`;
