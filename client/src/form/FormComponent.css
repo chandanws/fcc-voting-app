@@ -41,6 +41,14 @@
   padding: 1rem;
 }
 
+.form__input--error {
+  border: 3px solid red;
+}
+
+.form__input--success {
+  border: 3px solid lightgreen;
+}
+
 @media only screen and (min-width: 1000px) {
   .form {
     width: 60%;
