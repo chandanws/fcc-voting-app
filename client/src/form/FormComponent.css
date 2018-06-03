@@ -40,3 +40,20 @@
   border: 1px solid black;
   padding: 1rem;
 }
+
+@media only screen and (min-width: 1000px) {
+  .form {
+    width: 60%;
+  }
+  .form__wrapper {
+    flex-direction: row;
+  }
+  .form__label {
+    align-self: flex-end;
+    font-size: 2rem;
+  }
+  .form__input {
+    margin-left: 1rem;
+    flex-grow: 1;
+  }
+}

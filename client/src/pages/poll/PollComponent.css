@@ -1,0 +1,15 @@
+.chart-form-wrapper {
+  display: flex;
+  flex-direction: column;
+}
+
+@media only screen and (min-width: 1000px) {
+  .chart-form-wrapper {
+    flex-direction: row;
+  }
+
+  .chart__form {
+    order: -1;
+    align-self: center;
+  }
+}
