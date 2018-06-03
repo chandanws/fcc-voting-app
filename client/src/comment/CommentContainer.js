@@ -1,6 +1,10 @@
 import React, { Component } from "react";
 import CommentComponent from "./CommentComponent";
-import { toggleElementInArray, toggleObjectsInArray } from "../helpers/helpers";
+import {
+  toggleElementInArray,
+  toggleObjectsInArray,
+  changeValueInArrayOfObjects
+} from "../helpers/helpers";
 
 export default class CommentContainer extends Component {
   // comments will later be moved to redux state
@@ -81,6 +85,17 @@ export default class CommentContainer extends Component {
     const newArray = toggleElementInArray(this.state.closed, id);
     this.setState({
       closed: newArray
+    });
+  };
+
+  handleReplyState = id => event => {
+    const newArray = changeValueInArrayOfObjects(
+      this.state.openReplies,
+      id,
+      event.target.value
+    );
+    this.setState({
+      openReplies: newArray
     });
   };
 
