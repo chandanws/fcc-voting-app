@@ -8,6 +8,7 @@ import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PollComponent from "../pages/poll/PollComponent";
 import "./AppComponent.css";
+import ProfileComponent from "../pages/profile/ProfileComponent";
 
 const App = props => {
   return (
@@ -19,6 +20,7 @@ const App = props => {
             <Route exact path="/" component={HomepageComponent} />
             <Route path="/login" component={LoginComponent} />
             <Route path="/register" component={RegisterComponent} />
+            <Route path="/profile" component={ProfileComponent} />
             <Switch>
               <Route path="/polls/new" component={CreatePollComponent} />
               <Route path="/polls/:id" component={PollComponent} />
