@@ -22,14 +22,24 @@ export const FormElement = ({
   type,
   onChange,
   value,
-  id
+  id,
+  validation
 }) => {
+  let errorClassName;
+  if (value === "" || validation === "") {
+    errorClassName = "";
+  } else if (validation === true) {
+    errorClassName = "form__input--success";
+  } else {
+    errorClassName = "form__input--error";
+  }
+
   return (
     <div className="form__wrapper">
       <label className="form__label">{label}</label>
       <Component
         type={type}
-        className="form__input"
+        className={`form__input ${errorClassName}`}
         value={value}
         onChange={onChange(id)}
       />
@@ -44,5 +54,6 @@ FormElement.propTypes = {
 
 FormElement.defaultProps = {
   type: "text",
-  component: "input"
+  component: "input",
+  validation: ""
 };
