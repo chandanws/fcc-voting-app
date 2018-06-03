@@ -1,83 +1,153 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`<PollComponent /> should render correctly 1`] = `
-<div>
+<div
+  style={
+    Object {
+      "width": "100%",
+    }
+  }
+>
   <Typography
     component="h1"
     text="Best Actor"
   />
-  <Pie
-    data={
-      Object {
-        "datasets": Array [
-          Object {
-            "backgroundColor": Array [
-              "#FF6384",
-              "#36A2EB",
-              "#FFCE56",
-            ],
-            "data": Array [
-              300,
-              200,
-              50,
-            ],
-            "hoverBackgroundColor": Array [
-              "#FF6384",
-              "#36A2EB",
-              "#FFCE56",
-            ],
-          },
-        ],
-        "labels": Array [
-          "Green",
-          "Blue",
-          "Black",
-        ],
-      }
-    }
-    width={200}
-  />
-  <Form
-    onSubmit={[Function]}
+  <div
+    className="chart-form-wrapper"
   >
-    <label
-      className="form__label"
+    <ResponsiveContainer
+      aspect={1}
+      debounce={0}
+      height="100%"
+      width="100%"
     >
-      Select option:
-      <select
-        onChange={[Function]}
-        style={
+      <PieChart
+        barCategoryGap="10%"
+        barGap={4}
+        cx="50%"
+        cy="50%"
+        endAngle={360}
+        height={400}
+        innerRadius={0}
+        layout="centric"
+        margin={
           Object {
-            "border": "1px solid black",
-            "fontSize": "2rem",
-            "marginLeft": "1rem",
+            "bottom": 5,
+            "left": 5,
+            "right": 5,
+            "top": 5,
           }
         }
-        value="something"
+        outerRadius="80%"
+        reverseStackOrder={false}
+        stackOffset="none"
+        startAngle={0}
+        style={
+          Object {
+            "fontSize": "2rem",
+          }
+        }
+        width={800}
       >
-        <option
+        <Legend
+          align="center"
+          height={36}
+          iconSize={14}
+          layout="horizontal"
+          verticalAlign="top"
+        />
+        <Pie
+          animationBegin={400}
+          animationDuration={1500}
+          animationEasing="ease"
+          cx="50%"
+          cy="50%"
+          data={
+            Array [
+              Object {
+                "name": "B",
+                "value": 400,
+              },
+              Object {
+                "name": "A",
+                "value": 200,
+              },
+              Object {
+                "name": "C",
+                "value": 600,
+              },
+            ]
+          }
+          endAngle={360}
+          fill="#8884d8"
+          hide={false}
+          innerRadius={0}
+          isAnimationActive={true}
+          label={true}
+          labelLine={true}
+          legendType="rect"
+          minAngle={0}
+          nameKey="name"
+          outerRadius="80%"
+          paddingAngle={0}
+          startAngle={0}
+          stroke="#fff"
+        >
+          <Cell
+            fill="#0088FE"
+          />
+          <Cell
+            fill="#00C49F"
+          />
+          <Cell
+            fill="#FFBB28"
+          />
+        </Pie>
+      </PieChart>
+    </ResponsiveContainer>
+    <Form
+      className="chart__form"
+      onSubmit={[Function]}
+    >
+      <label
+        className="form__label"
+      >
+        Select option:
+        <select
+          onChange={[Function]}
+          style={
+            Object {
+              "border": "1px solid black",
+              "fontSize": "2rem",
+              "marginLeft": "1rem",
+            }
+          }
           value="something"
         >
-          Something
-        </option>
-        <option
-          value="user"
-        >
-          User
-        </option>
-        <option
-          value="weird"
-        >
-          Weird
-        </option>
-        <option
-          value="anti"
-        >
-          Anti
-        </option>
-      </select>
-    </label>
-  </Form>
+          <option
+            value="something"
+          >
+            Something
+          </option>
+          <option
+            value="user"
+          >
+            User
+          </option>
+          <option
+            value="weird"
+          >
+            Weird
+          </option>
+          <option
+            value="anti"
+          >
+            Anti
+          </option>
+        </select>
+      </label>
+    </Form>
+  </div>
   <Typography
     component="h2"
     text="Comments"
