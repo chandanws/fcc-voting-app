@@ -7,6 +7,7 @@ import CreatePollComponent from "../pages/createpoll/createpollComponent";
 import { BrowserRouter as Router, Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PollComponent from "../pages/poll/PollComponent";
+import "./AppComponent.css";
 
 const App = props => {
   return (
@@ -14,13 +15,7 @@ const App = props => {
       <Router>
         <div>
           <Navigation />
-          <main
-            style={{
-              position: "relative",
-              width: "90vw",
-              margin: "auto"
-            }}
-          >
+          <main className="main">
             <Route exact path="/" component={HomepageComponent} />
             <Route path="/login" component={LoginComponent} />
             <Route path="/register" component={RegisterComponent} />
