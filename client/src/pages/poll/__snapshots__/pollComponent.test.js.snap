@@ -19,7 +19,7 @@ exports[`<PollComponent /> should render correctly 1`] = `
       aspect={1}
       debounce={0}
       height="100%"
-      width={100}
+      width="100%"
     >
       <PieChart
         barCategoryGap="10%"

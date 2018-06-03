@@ -38,7 +38,7 @@ export default class PollComponent extends Component {
         {/* TODO: Change text to be based on data from redux*/}
         <Typography component="h1" text="Best Actor" />
         <div className="chart-form-wrapper">
-          <ResponsiveContainer width={100} aspect={1}>
+          <ResponsiveContainer aspect={1}>
             <PieChart style={{ fontSize: "2rem" }} height={400}>
               <Legend verticalAlign="top" height={36} />
               <Pie
