@@ -39,3 +39,29 @@
 .comment__action:hover {
   cursor: pointer;
 }
+
+.comment__form {
+  display: flex;
+  flex-direction: column;
+  margin: 1rem 0;
+}
+
+.comment__textarea {
+  flex-grow: 1;
+  font-size: 2rem;
+  height: 15rem;
+  border: 1px solid black;
+}
+
+.comment__submit {
+  padding: 1.5rem;
+  border: 1px solid black;
+}
+
+@media only screen and (min-width: 1000px) {
+  .comment__textarea {
+    flex-grow: 1;
+    font-size: 2rem;
+    height: 15rem;
+  }
+}
