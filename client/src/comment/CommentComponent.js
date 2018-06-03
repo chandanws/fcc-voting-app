@@ -1,11 +1,18 @@
 import React from "react";
 import { Comments } from "./CommentContainer";
 import "./CommentComponent.css";
+import { objectWithIdInArray } from "../helpers/helpers";
 
 const CommentComponent = props => {
   // props.closed
   // props.comment.id
-  const { closed, comment } = props;
+  const {
+    closed,
+    comment,
+    toggleOpenReplies,
+    openReplies,
+    handleReplyState
+  } = props;
   const result =
     closed.indexOf(comment.id) !== -1 ? (
       <div className="comment">
@@ -42,11 +49,34 @@ const CommentComponent = props => {
           </p>
         </div>
         <div className="comment__row">
-          <button className="comment__action">Reply</button>
+          <button
+            onClick={() => toggleOpenReplies(comment.id)}
+            className="comment__action"
+          >
+            Reply
+          </button>
           <button className="comment__action">Edit</button>
           <button className="comment__action">Delete</button>
         </div>
+        {objectWithIdInArray(openReplies, comment.id) !== -1 && (
+          <form
+            className="comment__form"
+            onSubmit={e => {
+              e.preventDefault();
+              console.log(openReplies);
+            }}
+          >
+            <textarea
+              className="comment__textarea"
+              onChange={handleReplyState(comment.id)}
+            />
+            <button className="comment__submit">Submit</button>
+          </form>
+        )}
         <Comments
+          openReplies={props.openReplies}
+          toggleOpenReplies={props.toggleOpenReplies}
+          handleReplyState={props.handleReplyState}
           closed={closed}
           toggleTree={props.toggleTree}
           comments={props.comment.children}
