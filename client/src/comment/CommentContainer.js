@@ -1,8 +1,11 @@
 import React, { Component } from "react";
 import CommentComponent from "./CommentComponent";
-import { toggleElementInArray } from "../helpers/helpers";
+import { toggleElementInArray, toggleObjectsInArray } from "../helpers/helpers";
 
 export default class CommentContainer extends Component {
+  // comments will later be moved to redux state
+  // closed comments and open reply boxes will move to new state
+  // open replies => [ {id: 1, value: "something"}, {id: 2, value: "something" }]
   state = {
     comments: [
       {
@@ -63,7 +66,15 @@ export default class CommentContainer extends Component {
         children: []
       }
     ],
-    closed: []
+    closed: [],
+    openReplies: []
+  };
+
+  toggleOpenReplies = id => {
+    const newArray = toggleObjectsInArray(this.state.openReplies, id);
+    this.setState({
+      openReplies: newArray
+    });
   };
 
   toggleTree = id => {
@@ -74,7 +85,6 @@ export default class CommentContainer extends Component {
   };
 
   render() {
-    console.log(this.state.closed);
     return (
       <div style={{ marginLeft: "-2rem" }}>
         <Comments
