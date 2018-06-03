@@ -76,7 +76,7 @@ export default class CommentContainer extends Component {
   render() {
     console.log(this.state.closed);
     return (
-      <div>
+      <div style={{ marginLeft: "-2rem" }}>
         <Comments
           closed={this.state.closed}
           toggleTree={this.toggleTree}
@@ -89,7 +89,7 @@ export default class CommentContainer extends Component {
 
 export const Comments = props => {
   return (
-    <div>
+    <div className="comments-branch">
       {props.comments.map(comment => {
         return (
           <CommentComponent

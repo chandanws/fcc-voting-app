@@ -70,9 +70,8 @@ export default class PollComponent extends Component {
         </div>
         <Typography component="h2" text="Comments" />
         {/* Margin left fix for first element */}
-        <div style={{ marginLeft: "-2rem" }}>
-          <CommentContainer />
-        </div>
+
+        <CommentContainer />
       </div>
     );
   }

@@ -54,7 +54,7 @@ const CommentComponent = props => {
       </div>
     );
 
-  return <div>{result}</div>;
+  return <React.Fragment>{result}</React.Fragment>;
 };
 
 export default CommentComponent;
