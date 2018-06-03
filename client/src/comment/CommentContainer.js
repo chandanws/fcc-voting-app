@@ -103,6 +103,9 @@ export default class CommentContainer extends Component {
     return (
       <div style={{ marginLeft: "-2rem" }}>
         <Comments
+          openReplies={this.state.openReplies}
+          toggleOpenReplies={this.toggleOpenReplies}
+          handleReplyState={this.handleReplyState}
           closed={this.state.closed}
           toggleTree={this.toggleTree}
           comments={this.state.comments}
@@ -118,6 +121,9 @@ export const Comments = props => {
       {props.comments.map(comment => {
         return (
           <CommentComponent
+            openReplies={props.openReplies}
+            toggleOpenReplies={props.toggleOpenReplies}
+            handleReplyState={props.handleReplyState}
             closed={props.closed}
             toggleTree={props.toggleTree}
             comment={comment}

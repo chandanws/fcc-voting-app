@@ -71,6 +71,8 @@ exports[`<CommentContainer /> should render correctly 1`] = `
         },
       ]
     }
+    handleReplyState={[Function]}
+    toggleOpenReplies={[Function]}
     toggleTree={[Function]}
   />
 </div>
