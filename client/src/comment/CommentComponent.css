@@ -13,8 +13,14 @@
 }
 
 .comment__hidden {
-  padding: 1rem 2rem;
+  border: 0px;
+  font-size: 3rem;
+  padding: 0.5rem 1.5rem;
   background-color: lightblue;
+}
+
+.comment__hidden:hover {
+  cursor: pointer;
 }
 
 .comment__meta {
@@ -63,5 +69,13 @@
     flex-grow: 1;
     font-size: 2rem;
     height: 15rem;
+  }
+
+  .comment__action {
+    background-color: white;
+  }
+
+  .comment__hidden {
+    background-color: white;
   }
 }
