@@ -118,9 +118,10 @@ export default class CommentContainer extends Component {
 export const Comments = props => {
   return (
     <div className="comments-branch">
-      {props.comments.map(comment => {
+      {props.comments.map((comment, index) => {
         return (
           <CommentComponent
+            key={index}
             openReplies={props.openReplies}
             toggleOpenReplies={props.toggleOpenReplies}
             handleReplyState={props.handleReplyState}
