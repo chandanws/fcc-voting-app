@@ -16,11 +16,18 @@ Form.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export const FormElement = ({ label, type, onChange, value, id }) => {
+export const FormElement = ({
+  component: Component,
+  label,
+  type,
+  onChange,
+  value,
+  id
+}) => {
   return (
     <div className="form__wrapper">
       <label className="form__label">{label}</label>
-      <input
+      <Component
         type={type}
         className="form__input"
         value={value}
@@ -36,5 +43,6 @@ FormElement.propTypes = {
 };
 
 FormElement.defaultProps = {
-  type: "text"
+  type: "text",
+  component: "input"
 };
