@@ -1,10 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./FormComponent.css";
+import { useModifierWithBlock } from "../helpers/helpers";
 
-export const Form = ({ children, ...props }) => {
+export const Form = ({ children, className, ...props }) => {
   return (
-    <form className="form" {...props}>
+    <form className={`form ${className}`} {...props}>
       {children}
       <input className="form__submit" type="submit" value="submit" />
     </form>
