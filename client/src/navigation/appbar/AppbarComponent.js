@@ -9,7 +9,7 @@ const Appbar = props => {
       <Button
         modifiers={["stroked"]}
         onClick={props.toggleDrawer}
-        className="appbar__button"
+        className="appbar__button appbar__button--menu"
       >
         Menu
       </Button>
