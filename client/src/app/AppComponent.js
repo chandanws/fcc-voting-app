@@ -9,6 +9,7 @@ import { Switch } from "react-router-dom";
 import PollComponent from "../pages/poll/PollComponent";
 import "./AppComponent.css";
 import ProfileComponent from "../pages/profile/ProfileComponent";
+import { WithAuth } from "../middleware/authentication";
 
 const App = props => {
   return (
@@ -20,9 +21,13 @@ const App = props => {
             <Route exact path="/" component={HomepageComponent} />
             <Route path="/login" component={LoginComponent} />
             <Route path="/register" component={RegisterComponent} />
-            <Route path="/profile" component={ProfileComponent} />
+            <WithAuth
+              path="/profile"
+              component={ProfileComponent}
+              isLogged={false}
+            />
             <Switch>
-              <Route path="/polls/new" component={CreatePollComponent} />
+              <WithAuth path="/polls/new" component={CreatePollComponent} />
               <Route path="/polls/:id" component={PollComponent} />
             </Switch>
           </main>
