@@ -3,8 +3,7 @@ const pgp = require("../../database").pgp;
 const response = require("../../helpers/response");
 
 exports.polls_list = (req, res) => {
-  db
-    .any("SELECT id, title FROM polls", [])
+  db.any("SELECT id, title FROM polls", [])
     .then(data => {
       res.status(200);
       res.set("Content-Type", "application/json");
@@ -18,11 +17,10 @@ exports.polls_list = (req, res) => {
 };
 
 exports.polls_detail = (req, res) => {
-  db
-    .any(
-      "SELECT p.title, o.id AS option_id, o.name, o.value FROM polls AS p INNER JOIN options AS o ON p.id = o.poll_id WHERE p.id = $1",
-      [req.params.poll_id]
-    )
+  db.any(
+    "SELECT p.title, o.id AS option_id, o.name, o.value FROM polls AS p INNER JOIN options AS o ON p.id = o.poll_id WHERE p.id = $1",
+    [req.params.poll_id]
+  )
     .then(data => {
       const obj = {};
       obj.title = data[0].title;
@@ -35,6 +33,7 @@ exports.polls_detail = (req, res) => {
       });
       obj.options = options;
       res.status(200);
+      console.log(obj);
       return res.send(obj);
     })
     .catch(err => {
@@ -53,22 +52,21 @@ exports.polls_create = (req, res) => {
     return res.json({ status: "fail", data: { title: "A title is required" } });
   }
 
-  db
-    .task(async t => {
-      const poll = await t.one(
-        "INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id",
-        [res.locals.id, title]
-      );
-      const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
-        table: "options"
-      });
-      const values = JSON.parse(options).map(option => {
-        return { poll_id: poll.id, name: option };
-      });
-      const query = pgp.helpers.insert(values, cs);
-      const nothing = await t.none(query);
-      return { id: poll.id };
-    })
+  db.task(async t => {
+    const poll = await t.one(
+      "INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id",
+      [res.locals.id, title]
+    );
+    const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
+      table: "options"
+    });
+    const values = JSON.parse(options).map(option => {
+      return { poll_id: poll.id, name: option };
+    });
+    const query = pgp.helpers.insert(values, cs);
+    const nothing = await t.none(query);
+    return { id: poll.id };
+  })
     .then(data => {
       res.status(201);
       res.set("Location", `/polls/${data.id}`);
@@ -89,17 +87,16 @@ exports.polls_create = (req, res) => {
 };
 
 exports.polls_delete = (req, res) => {
-  db
-    .result("DELETE FROM polls WHERE id = $1 AND user_id = $2", [
-      req.params.poll_id,
-      res.locals.id
-    ])
+  db.result("DELETE FROM polls WHERE id = $1 AND user_id = $2", [
+    req.params.poll_id,
+    res.locals.id
+  ])
     .then(result => {
       if (result.rowCount === 1) {
-        return res.status(204);
+        return res.status(204).send();
       } else {
         res.status(400);
-        res.json({
+        return res.json({
           status: "fail",
           data: { poll: "Poll doesn't exist or invalid token" }
         });
@@ -149,17 +146,16 @@ exports.polls_vote = (req, res) => {
     });
   }
 
-  db
-    .task(async t => {
-      const nothing = t.none(
-        "UPDATE options SET value = value + 1 WHERE id = $1",
-        [option_id]
-      );
-      return await t.any(
-        "SELECT id, name, value FROM options WHERE poll_id = $1",
-        [poll_id]
-      );
-    })
+  db.task(async t => {
+    const nothing = t.none(
+      "UPDATE options SET value = value + 1 WHERE id = $1",
+      [option_id]
+    );
+    return await t.any(
+      "SELECT id, name, value FROM options WHERE poll_id = $1",
+      [poll_id]
+    );
+  })
     .then(data => {
       res.status(200);
       return res.json({
