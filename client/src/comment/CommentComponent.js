@@ -14,11 +14,11 @@ const CommentComponent = props => {
     handleReplyState
   } = props;
   const result =
-    closed.indexOf(comment.id) !== -1 ? (
+    closed.indexOf(comment.comment_id) !== -1 ? (
       <div className="comment">
         <div className="comment__row">
           <button
-            onClick={() => props.toggleTree(props.comment.id)}
+            onClick={() => props.toggleTree(props.comment.comment_id)}
             className="comment__hidden"
           >
             -
@@ -33,7 +33,7 @@ const CommentComponent = props => {
       <div className="comment">
         <div className="comment__row">
           <button
-            onClick={() => props.toggleTree(props.comment.id)}
+            onClick={() => props.toggleTree(props.comment.comment_id)}
             className="comment__hidden"
           >
             -
@@ -44,13 +44,11 @@ const CommentComponent = props => {
           </div>
         </div>
         <div className="comment__row">
-          <p className="comment__paragraph">
-            This poll is very good, this is my message!
-          </p>
+          <p className="comment__paragraph">{comment.body}</p>
         </div>
         <div className="comment__row">
           <button
-            onClick={() => toggleOpenReplies(comment.id)}
+            onClick={() => toggleOpenReplies(comment.comment_id)}
             className="comment__action"
           >
             Reply
@@ -58,7 +56,7 @@ const CommentComponent = props => {
           <button className="comment__action">Edit</button>
           <button className="comment__action">Delete</button>
         </div>
-        {objectWithIdInArray(openReplies, comment.id) !== -1 && (
+        {objectWithIdInArray(openReplies, comment.comment_id) !== -1 && (
           <form
             className="comment__form"
             onSubmit={e => {
@@ -68,7 +66,7 @@ const CommentComponent = props => {
           >
             <textarea
               className="comment__textarea"
-              onChange={handleReplyState(comment.id)}
+              onChange={handleReplyState(comment.comment_id)}
             />
             <button className="comment__submit">Submit</button>
           </form>
