@@ -1,7 +1,7 @@
 import React from "react";
 import Navigation from "../navigation";
 import HomepageContainer from "../pages/homepage/homepageContainer";
-import LoginComponent from "../pages/login/loginComponent";
+import LoginContainer from "../pages/login/LoginContainer";
 import RegisterComponent from "../pages/register/registerComponent";
 import CreatePollComponent from "../pages/createpoll/createpollComponent";
 import { BrowserRouter as Router, Route } from "react-router-dom";
@@ -19,7 +19,7 @@ const App = props => {
           <Navigation />
           <main className="main">
             <Route exact path="/" component={HomepageContainer} />
-            <Route path="/login" component={LoginComponent} />
+            <Route path="/login" component={LoginContainer} />
             <Route path="/register" component={RegisterComponent} />
             <WithAuth
               path="/profile"
