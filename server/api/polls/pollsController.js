@@ -180,11 +180,40 @@ exports.polls_vote = (req, res) => {
 exports.polls_comments_list = (req, res) => {
   db.any("SELECT * FROM comments WHERE poll_id = $1", [req.params.poll_id])
     .then(data => {
-      console.log();
       return res.status(200).send({ data: helpers.makeTree({ q: data }) });
     })
     .catch(e => {
       console.log(e);
       return res.status(500).send("error");
+    });
+};
+
+exports.polls_comments_create = (req, res) => {
+  if (req.body.parent_id === undefined || req.body.text === undefined) {
+    return res.status(400).send({});
+  }
+
+  db.any(
+    "INSERT INTO comments (user_id, poll_id, parent_id, body) VALUES ($1, $2, $3, $4)",
+    [res.locals.id, req.params.poll_id, req.body.parent_id, req.body.text]
+  )
+    .then(data => {
+      return res.status(201).send({});
+    })
+    .catch(e => {
+      console.log(e);
+      return res.status(500).send({ status: "error", message: e });
+    });
+};
+
+exports.polls_comments_update = (req, res) => {
+  db.none(
+    "UPDATE comments SET body = $1 WHERE comment_id = $2 and user_id = $3",
+    [req.body.text, req.params.comment_id, res.locals.id]
+  )
+    .then(() => res.status(204).send({}))
+    .catch(e => {
+      console.log(e);
+      return res.status(500).send({ status: "error", message: e });
     });
 };

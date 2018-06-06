@@ -161,4 +161,75 @@ describe("polls controller", () => {
         });
     });
   });
+
+  describe("polls_comments_list", () => {
+    it("should return comments in proper tree format", () => {
+      return request(app)
+        .get("/polls/1/comments")
+        .then(res => {
+          expect(res.body.data[0].body).toBe("0.1");
+        });
+    });
+  });
+
+  describe("create comment", () => {
+    it("should create new comment", () => {
+      return request(app)
+        .post("/polls/2/comments")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ text: "newly created comment", parent_id: null })
+        .then(res => {
+          expect(res.statusCode).toBe(201);
+          return request(app)
+            .get("/polls/2/comments")
+            .then(res => {
+              expect(res.body.data[0].body).toBe("newly created comment");
+            });
+        });
+    });
+
+    it("should not create comment when parent_id is missing", () => {
+      return request(app)
+        .post("/polls/2/comments")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ text: "newly created comment" })
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+        });
+    });
+
+    it("should not create comment when text is missing", () => {
+      return request(app)
+        .post("/polls/2/comments")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ parent_id: null })
+        .then(res => {
+          expect(res.statusCode).toBe(400);
+        });
+    });
+  });
+
+  describe("edit comment", () => {
+    it("should edit the comment when proper user", () => {
+      return request(app)
+        .put("/polls/1/comments/2")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ text: "updated comment" })
+        .then(res => {
+          expect(res.statusCode).toBe(204);
+          return request(app)
+            .get("/polls/1/comments")
+            .then(res => {
+              let value = "";
+              const comments = res.body.data;
+              for (let i = 0; i < comments.length; i++) {
+                if (comments[i].comment_id === 2) {
+                  value = comments[i].body;
+                }
+              }
+              expect(value).toBe("updated comment");
+            });
+        });
+    });
+  });
 });
