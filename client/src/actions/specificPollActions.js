@@ -23,3 +23,35 @@ export const fetchSpecificPoll = poll_id => {
       });
   };
 };
+
+export const REQUEST_POLL_VOTE = "REQUEST_POLL_VOTE";
+export const requestPollVote = () => ({
+  type: REQUEST_POLL_VOTE
+});
+
+export const RECEIVE_POLL_VOTE = "RECEIVE_POLL_VOTE";
+export const receivePollVote = () => ({
+  type: RECEIVE_POLL_VOTE
+});
+
+export const initiatePollVote = (poll_id, option_id) => {
+  return dispatch => {
+    dispatch(requestPollVote());
+    return fetch(`/polls/${poll_id}/vote`, {
+      body: JSON.stringify({ option_id }),
+      cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+      credentials: "same-origin", // include, same-origin, *omit
+      headers: {
+        "user-agent": "Mozilla/4.0 MDN Example",
+        "content-type": "application/json"
+      },
+      method: "PUT",
+      mode: "cors", // no-cors, cors, *same-origin
+      redirect: "follow", // manual, *follow, error
+      referrer: "no-referrer" // *client, no-referrer
+    }).then(response => {
+      console.log(response);
+      dispatch(receivePollVote());
+    });
+  };
+};
