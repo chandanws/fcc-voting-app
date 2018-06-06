@@ -33,7 +33,6 @@ exports.polls_detail = (req, res) => {
       });
       obj.options = options;
       res.status(200);
-      console.log(obj);
       return res.send(obj);
     })
     .catch(err => {
@@ -114,11 +113,15 @@ exports.polls_update = (req, res) => {
     deletedOptions === undefined ? undefined : JSON.parse(deletedOptions);
   const addOptionsJSON =
     addedOptions === undefined ? undefined : JSON.parse(addedOptions);
+
   if (delOptionsJSON && delOptionsJSON.length >= 1) {
     // remove values from options
     delOptionsJSON.forEach(id => {
       if (!isNaN(id)) {
-        return db.none("DELETE FROM options WHERE id = $1", [id]);
+        return db
+          .none("DELETE FROM options WHERE id = $1", [id])
+          .then()
+          .catch(e => console.log(e));
       }
     });
   }

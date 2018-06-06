@@ -110,9 +110,55 @@ describe("polls controller", () => {
     });
   });
 
-  describe("polls_detail", () => {});
+  describe("polls_detail", () => {
+    it("should have proper body", () => {
+      return request(app)
+        .get("/polls/1")
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          expect(res.body).toHaveProperty("title", "Title by admin");
+          expect(res.body).toHaveProperty("options");
+        });
+    });
+  });
 
-  describe("polls_update", () => {});
+  describe("polls_update", () => {
+    it("should remove option", () => {
+      return request(app)
+        .put("/polls/1")
+        .set("Authorization", `Bearer ${token}`)
+        .send({ deletedOptions: "[1, 2]" })
+        .then(res => {
+          expect(res.statusCode).toBe(204);
+          return request(app)
+            .get("/polls/1")
+            .then(res2 => {
+              expect(res2.body.options.length).toBe(3);
+            });
+        });
+    });
+  });
 
-  describe("polls_vote", () => {});
+  describe("polls_vote", () => {
+    it("should change options value when vote is successful", () => {
+      return request(app)
+        .put("/polls/1/vote")
+        .send({ option_id: 1 })
+        .then(res => {
+          expect(res.statusCode).toBe(200);
+          return request(app)
+            .get("/polls/1")
+            .then(res2 => {
+              let value = 0;
+              const options = res2.body.options;
+              for (let i = 0; i < options.length; i++) {
+                if (options[i].option_id === 1) {
+                  value = 1;
+                }
+              }
+              expect(value).toBe(1);
+            });
+        });
+    });
+  });
 });
