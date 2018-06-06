@@ -24,9 +24,9 @@ CREATE TABLE options (
 );
 
 CREATE TABLE comments (
-  id SERIAL PRIMARY KEY,
+  comment_id SERIAL PRIMARY KEY,
   user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
-  poll_id INTEGER REFERENCES posts(post_id) ON DELETE CASCADE,
+  poll_id INTEGER REFERENCES polls(id) ON DELETE CASCADE,
   parent_id INTEGER REFERENCES comments(comment_id),
-  body text,
+  body text
 );
