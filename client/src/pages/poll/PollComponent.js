@@ -18,7 +18,7 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
 export default class PollComponent extends Component {
   state = {
-    value: "something",
+    id: 0,
     replyValue: ""
   };
 
@@ -26,29 +26,57 @@ export default class PollComponent extends Component {
     this.props.fetchSpecificPoll(this.props.match.params.id);
   }
 
-  handleChange = e => this.setState({ value: e.target.value });
+  componentDidUpdate() {
+    if (
+      !this.props.specificPoll.isLoading &&
+      this.props.specificPoll.data.options &&
+      this.state.id === 0
+    ) {
+      this.setState({ id: this.props.specificPoll.data.options[0].option_id });
+    }
+  }
+
+  handleChange = e => {
+    this.setState({ id: +e.target.value });
+  };
 
   handleSubmit = e => {
     e.preventDefault();
-    alert(this.state.value);
+    this.props
+      .vote(this.props.match.params.id, this.state.id)
+      .then(() => this.props.fetchSpecificPoll(this.props.match.params.id));
   };
 
   render() {
     let piechart;
+    let options;
     const { specificPoll } = this.props;
+    console.log(specificPoll);
     if (
-      specificPoll.isLoading === true ||
-      specificPoll.data.options === undefined
+      specificPoll.isLoading ||
+      specificPoll.data.options === undefined ||
+      specificPoll.voting
     ) {
       piechart = <div>Nothing</div>;
     } else {
-      const options = specificPoll.data.options.map(option => {
+      options = specificPoll.data.options.map(option => {
+        return (
+          <option
+            data-id={option.option_id}
+            key={option.option_id}
+            value={option.option_id}
+          >
+            {option.name}
+          </option>
+        );
+      });
+      const data = specificPoll.data.options.map(option => {
         return { name: option.name, value: option.value };
       });
       piechart = (
         <PieChart style={{ fontSize: "2rem" }} height={400}>
           <Legend verticalAlign="top" height={36} />
-          <Pie label fill="#8884d8" dataKey="value" data={options}>
+          <Pie label fill="#8884d8" dataKey="value" data={data}>
             {options.map((entry, index) => (
               <Cell key={index} fill={COLORS[index % COLORS.length]} />
             ))}
@@ -66,20 +94,19 @@ export default class PollComponent extends Component {
           <Form className="chart__form" onSubmit={this.handleSubmit}>
             <label className="form__label">
               Select option:
-              <select
-                style={{
-                  fontSize: "2rem",
-                  marginLeft: "1rem",
-                  border: "1px solid black"
-                }}
-                value={this.state.value}
-                onChange={this.handleChange}
-              >
-                <option value="something">Something</option>
-                <option value="user">User</option>
-                <option value="weird">Weird</option>
-                <option value="anti">Anti</option>
-              </select>
+              {specificPoll.data.options && (
+                <select
+                  style={{
+                    fontSize: "2rem",
+                    marginLeft: "1rem",
+                    border: "1px solid black"
+                  }}
+                  value={this.state.id}
+                  onChange={this.handleChange}
+                >
+                  {options}
+                </select>
+              )}
             </label>
           </Form>
         </div>
