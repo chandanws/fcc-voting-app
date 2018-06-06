@@ -124,7 +124,7 @@ export default class PollComponent extends Component {
           <button className="comment__submit">Submit</button>
         </form>
 
-        <CommentContainer />
+        <CommentContainer poll_id={this.props.match.params.id} />
       </div>
     );
   }
