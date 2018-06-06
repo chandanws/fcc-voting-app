@@ -140,6 +140,7 @@ exports.polls_update = (req, res) => {
 };
 
 exports.polls_vote = (req, res) => {
+  console.log(req.body);
   const poll_id = req.params.poll_id;
   const { option_id } = req.body;
   if (!option_id) {
@@ -161,11 +162,7 @@ exports.polls_vote = (req, res) => {
     );
   })
     .then(data => {
-      res.status(200);
-      return res.json({
-        status: "success",
-        data
-      });
+      return res.status(200).send({});
     })
     .catch(err => {
       console.log(err);
