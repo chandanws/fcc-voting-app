@@ -19,4 +19,6 @@ router.delete(
 // TODO: bad URI to use /vote, check for better option, for now will do
 router.put("/:poll_id/vote", pollsController.polls_vote);
 
+router.get("/:poll_id/comments", pollsController.polls_comments_list);
+
 module.exports = router;
