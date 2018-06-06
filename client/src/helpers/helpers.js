@@ -96,3 +96,9 @@ export const changeValueInArrayOfObjects = (array, id, newValue) => {
 export const removeElementFromArray = (array, index) => {
   return array.slice(0, index).concat(array.slice(index + 1));
 };
+
+export const decodeJWT = token => {
+  const base64Url = token.split(".")[1];
+  const base64 = base64Url.replace("-", "+").replace("-", "/");
+  return JSON.parse(window.atob(base64));
+};
