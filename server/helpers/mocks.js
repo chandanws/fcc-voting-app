@@ -16,6 +16,13 @@ function setupDatabase(db) {
     { poll_id: 2, name: "user4Option" }
   ];
 
+  const comments = [
+    { user_id: 1, poll_id: 1, parent_id: null, body: "0.1" },
+    { user_id: 1, poll_id: 1, parent_id: null, body: "0.2" },
+    { user_id: 1, poll_id: 1, parent_id: 1, body: "1.1" },
+    { user_id: 1, poll_id: 1, parent_id: null, body: "0.3" }
+  ];
+
   return db.task(async t1 => {
     const clear = await t1.none("TRUNCATE users RESTART IDENTITY CASCADE");
     const admin = await t1.one(
@@ -39,6 +46,14 @@ function setupDatabase(db) {
         t.none(
           "INSERT INTO options(poll_id, name) VALUES (${poll_id}, ${name})",
           option
+        )
+      );
+    });
+    t1.tx(t => {
+      const queries = comments.map(comments =>
+        t.none(
+          "INSERT INTO comments(user_id, poll_id, parent_id, body) VALUES (${user_id}, ${poll_id}, ${parent_id}, ${body})",
+          comments
         )
       );
     });
