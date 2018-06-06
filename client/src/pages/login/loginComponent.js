@@ -10,8 +10,9 @@ class LoginComponent extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
+
     // do something with redux later
-    console.log(this.state);
+    this.props.login(this.state.username, this.state.password);
   };
 
   handleChange = id => event => {
