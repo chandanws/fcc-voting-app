@@ -19,13 +19,12 @@ const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 export default class PollComponent extends Component {
   state = {
     value: "something",
-    dummyData: [
-      { name: "B", value: 400 },
-      { name: "A", value: 200 },
-      { name: "C", value: 600 }
-    ],
     replyValue: ""
   };
+
+  componentDidMount() {
+    this.props.fetchSpecificPoll(this.props.match.params.id);
+  }
 
   handleChange = e => this.setState({ value: e.target.value });
 
@@ -33,27 +32,37 @@ export default class PollComponent extends Component {
     e.preventDefault();
     alert(this.state.value);
   };
+
   render() {
+    let piechart;
+    const { specificPoll } = this.props;
+    if (
+      specificPoll.isLoading === true ||
+      specificPoll.data.options === undefined
+    ) {
+      piechart = <div>Nothing</div>;
+    } else {
+      const options = specificPoll.data.options.map(option => {
+        return { name: option.name, value: option.value };
+      });
+      piechart = (
+        <PieChart style={{ fontSize: "2rem" }} height={400}>
+          <Legend verticalAlign="top" height={36} />
+          <Pie label fill="#8884d8" dataKey="value" data={options}>
+            {options.map((entry, index) => (
+              <Cell key={index} fill={COLORS[index % COLORS.length]} />
+            ))}
+          </Pie>
+        </PieChart>
+      );
+    }
+
     return (
       <div style={{ width: "100%" }}>
         {/* TODO: Change text to be based on data from redux*/}
         <Typography component="h1" text="Best Actor" />
         <div className="chart-form-wrapper">
-          <ResponsiveContainer aspect={1}>
-            <PieChart style={{ fontSize: "2rem" }} height={400}>
-              <Legend verticalAlign="top" height={36} />
-              <Pie
-                label
-                fill="#8884d8"
-                dataKey="value"
-                data={this.state.dummyData}
-              >
-                {this.state.dummyData.map((entry, index) => (
-                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
-                ))}
-              </Pie>
-            </PieChart>
-          </ResponsiveContainer>
+          <ResponsiveContainer aspect={1}>{piechart}</ResponsiveContainer>
           <Form className="chart__form" onSubmit={this.handleSubmit}>
             <label className="form__label">
               Select option:
