@@ -1,32 +1,36 @@
-import React from "react";
+import React, { Component } from "react";
 import { Typography } from "../../Typography/Typography";
 import List, { ListItem } from "../../list/ListComponent";
 import { Button } from "../../button/ButtonComponent";
 import { Link } from "react-router-dom";
 
-const HomepageComponent = props => {
-  return (
-    <div>
-      <Typography component="h1" text="All polls" />
-      <List modifiers={["bordered"]}>
-        <ListItem>
-          <Button component={Link} to="/polls/1" modifiers={["align-left"]}>
-            Test
+class HomepageComponent extends Component {
+  componentDidMount() {
+    this.props.fetchPolls();
+  }
+  render() {
+    console.log(this.props.polls);
+    const { polls } = this.props;
+    const pollsList = polls.data.map(poll => {
+      return (
+        <ListItem key={poll.id}>
+          <Button
+            component={Link}
+            to={`/polls/${poll.id}`}
+            modifiers={["align-left"]}
+          >
+            {poll.title}
           </Button>
         </ListItem>
-        <ListItem>
-          <Button component={Link} to="/polls/2" modifiers={["align-left"]}>
-            Test
-          </Button>
-        </ListItem>
-        <ListItem>
-          <Button component={Link} to="/polls/3" modifiers={["align-left"]}>
-            Test
-          </Button>
-        </ListItem>
-      </List>
-    </div>
-  );
-};
+      );
+    });
+    return (
+      <div>
+        <Typography component="h1" text="All polls" />
+        <List modifiers={["bordered"]}>{pollsList}</List>
+      </div>
+    );
+  }
+}
 
 export default HomepageComponent;
