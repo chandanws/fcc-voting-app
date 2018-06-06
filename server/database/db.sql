@@ -22,6 +22,3 @@ CREATE TABLE options (
   name varchar(80),
   value INTEGER DEFAULT 0
 );
-
-INSERT INTO users (username, hash, salt) VALUES
-  ('admin', 'pass', 'salt');
