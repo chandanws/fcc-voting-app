@@ -20,5 +20,15 @@ router.delete(
 router.put("/:poll_id/vote", pollsController.polls_vote);
 
 router.get("/:poll_id/comments", pollsController.polls_comments_list);
+router.post(
+  "/:poll_id/comments",
+  auth.authenticationRequired,
+  pollsController.polls_comments_create
+);
 
+router.put(
+  "/:poll_id/comments/:comment_id",
+  auth.authenticationRequired,
+  pollsController.polls_comments_update
+);
 module.exports = router;
