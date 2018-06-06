@@ -1,6 +1,6 @@
 import React from "react";
 import Navigation from "../navigation";
-import HomepageComponent from "../pages/homepage/homepageComponent";
+import HomepageContainer from "../pages/homepage/homepageContainer";
 import LoginComponent from "../pages/login/loginComponent";
 import RegisterComponent from "../pages/register/registerComponent";
 import CreatePollComponent from "../pages/createpoll/createpollComponent";
@@ -18,7 +18,7 @@ const App = props => {
         <div>
           <Navigation />
           <main className="main">
-            <Route exact path="/" component={HomepageComponent} />
+            <Route exact path="/" component={HomepageContainer} />
             <Route path="/login" component={LoginComponent} />
             <Route path="/register" component={RegisterComponent} />
             <WithAuth
