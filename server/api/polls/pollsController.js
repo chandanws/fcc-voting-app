@@ -140,7 +140,6 @@ exports.polls_update = (req, res) => {
 };
 
 exports.polls_vote = (req, res) => {
-  console.log(req.body);
   const poll_id = req.params.poll_id;
   const { option_id } = req.body;
   if (!option_id) {
