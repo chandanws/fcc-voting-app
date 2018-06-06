@@ -1,6 +1,7 @@
 const db = require("../../database").db;
 const pgp = require("../../database").pgp;
 const response = require("../../helpers/response");
+const helpers = require("../../helpers");
 
 exports.polls_list = (req, res) => {
   db.any("SELECT id, title FROM polls", [])
@@ -173,5 +174,17 @@ exports.polls_vote = (req, res) => {
         status: "error",
         data: "server error"
       });
+    });
+};
+
+exports.polls_comments_list = (req, res) => {
+  db.any("SELECT * FROM comments WHERE poll_id = $1", [req.params.poll_id])
+    .then(data => {
+      console.log();
+      return res.status(200).send({ data: helpers.makeTree({ q: data }) });
+    })
+    .catch(e => {
+      console.log(e);
+      return res.status(500).send("error");
     });
 };
