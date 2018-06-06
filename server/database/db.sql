@@ -22,3 +22,11 @@ CREATE TABLE options (
   name varchar(80),
   value INTEGER DEFAULT 0
 );
+
+CREATE TABLE comments (
+  id SERIAL PRIMARY KEY,
+  user_id INTEGER REFERENCES users(id) ON DELETE SET NULL,
+  poll_id INTEGER REFERENCES posts(post_id) ON DELETE CASCADE,
+  parent_id INTEGER REFERENCES comments(comment_id),
+  body text,
+);
