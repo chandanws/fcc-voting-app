@@ -26,7 +26,6 @@ class CommentContainer extends Component {
     this.setState({
       openReplies: newArray
     });
-    console.log("Test", newArray);
   };
 
   toggleTree = id => {
@@ -48,7 +47,6 @@ class CommentContainer extends Component {
   };
 
   render() {
-    console.log("Comments", this.props.comments);
     return (
       <div style={{ marginLeft: "-2rem" }}>
         {this.props.comments.data[0] && (
