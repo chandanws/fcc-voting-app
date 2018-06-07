@@ -3,13 +3,13 @@ import { Typography } from "../../Typography/Typography";
 import List, { ListItem } from "../../list/ListComponent";
 import { Button } from "../../button/ButtonComponent";
 import { Link } from "react-router-dom";
+import { LoadingWrapper, LoadingCircle } from "../../loading/LoadingCircle";
 
 class HomepageComponent extends Component {
   componentDidMount() {
     this.props.fetchPolls();
   }
   render() {
-    console.log(this.props.polls);
     const { polls } = this.props;
     const pollsList = polls.data.map(poll => {
       return (
@@ -24,10 +24,18 @@ class HomepageComponent extends Component {
         </ListItem>
       );
     });
+
+    const list = polls.isLoading ? (
+      <LoadingWrapper>
+        <LoadingCircle />
+      </LoadingWrapper>
+    ) : (
+      <List modifiers={["bordered"]}>{pollsList}</List>
+    );
     return (
       <div>
         <Typography component="h1" text="All polls" />
-        <List modifiers={["bordered"]}>{pollsList}</List>
+        {list}
       </div>
     );
   }
