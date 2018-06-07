@@ -1,4 +1,5 @@
 import { decodeJWT } from "../helpers/helpers";
+import { receiveError } from "./failActions";
 
 export const CHECK_TOKEN_LOGIN = "CHECK_TOKEN_LOGIN";
 const requestTokenLogin = login => {
@@ -19,6 +20,12 @@ export const receiveLogin = userData => ({
   payload: userData
 });
 
+export const FAIL_LOGIN = "FAIL_LOGIN";
+export const failLogin = message => ({
+  type: FAIL_LOGIN,
+  payload: message
+});
+
 export const fetchLogin = (username, password) => {
   return dispatch => {
     dispatch(requestLogin());
@@ -35,10 +42,16 @@ export const fetchLogin = (username, password) => {
       redirect: "follow", // manual, *follow, error
       referrer: "no-referrer" // *client, no-referrer
     }).then(response => {
-      const token = response.headers.get("authorization").split(" ")[1];
-      localStorage.setItem("fcc-voting-app-token", token);
-      const decoded = decodeJWT(token).data;
-      dispatch(receiveLogin(decoded));
+      if (response.status >= 200 && response.status < 300) {
+        const token = response.headers.get("authorization").split(" ")[1];
+        localStorage.setItem("fcc-voting-app-token", token);
+        const decoded = decodeJWT(token).data;
+        dispatch(receiveLogin(decoded));
+      } else {
+        return response.json().then(json => {
+          dispatch(failLogin(json.data.authorization));
+        });
+      }
     });
   };
 };
