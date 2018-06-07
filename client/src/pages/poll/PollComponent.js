@@ -13,6 +13,7 @@ import {
 import { Form, FormElement } from "../../form/FormComponent";
 import CommentContainer from "../../comment/CommentContainer";
 import "./PollComponent.css";
+import { LoadingCircle, LoadingWrapper } from "../../loading/LoadingCircle";
 
 const COLORS = ["#0088FE", "#00C49F", "#FFBB28", "#FF8042"];
 
@@ -48,49 +49,41 @@ export default class PollComponent extends Component {
   };
 
   render() {
-    let piechart;
-    let options;
     const { specificPoll } = this.props;
-    console.log(specificPoll);
-    if (
-      specificPoll.isLoading ||
-      specificPoll.data.options === undefined ||
-      specificPoll.voting
-    ) {
-      piechart = <div>Nothing</div>;
+
+    let piechart;
+
+    if (specificPoll.isLoading) {
+      piechart = (
+        <LoadingWrapper>
+          <LoadingCircle />
+        </LoadingWrapper>
+      );
+    } else if (specificPoll.data.options === undefined) {
+      piechart = <div>Empty</div>;
     } else {
-      options = specificPoll.data.options.map(option => {
-        return (
-          <option
-            data-id={option.option_id}
-            key={option.option_id}
-            value={option.option_id}
-          >
+      let options = [];
+      let data = [];
+      specificPoll.data.options.forEach(option => {
+        options.push(
+          <option key={option.option_id} value={option.option_id}>
             {option.name}
           </option>
         );
-      });
-      const data = specificPoll.data.options.map(option => {
-        return { name: option.name, value: option.value };
+        data.push({ name: option.name, value: option.value });
       });
       piechart = (
-        <PieChart style={{ fontSize: "2rem" }} height={400}>
-          <Legend verticalAlign="top" height={36} />
-          <Pie label fill="#8884d8" dataKey="value" data={data}>
-            {options.map((entry, index) => (
-              <Cell key={index} fill={COLORS[index % COLORS.length]} />
-            ))}
-          </Pie>
-        </PieChart>
-      );
-    }
-
-    return (
-      <div style={{ width: "100%" }}>
-        {/* TODO: Change text to be based on data from redux*/}
-        <Typography component="h1" text="Best Actor" />
         <div className="chart-form-wrapper">
-          <ResponsiveContainer aspect={1}>{piechart}</ResponsiveContainer>
+          <ResponsiveContainer aspect={1}>
+            <PieChart style={{ fontSize: "2rem" }} height={400}>
+              <Legend verticalAlign="top" height={36} />
+              <Pie label fill="#8884d8" dataKey="value" data={data}>
+                {options.map((entry, index) => (
+                  <Cell key={index} fill={COLORS[index % COLORS.length]} />
+                ))}
+              </Pie>
+            </PieChart>
+          </ResponsiveContainer>
           <Form className="chart__form" onSubmit={this.handleSubmit}>
             <label className="form__label">
               Select option:
@@ -110,6 +103,14 @@ export default class PollComponent extends Component {
             </label>
           </Form>
         </div>
+      );
+    }
+
+    return (
+      <div style={{ width: "100%" }}>
+        {/* TODO: Change text to be based on data from redux*/}
+        <Typography component="h1" text="Best Actor" />
+        <div>{piechart}</div>
         <Typography component="h2" text="Comments" />
         <form
           className="comment__form"
