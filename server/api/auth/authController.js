@@ -15,10 +15,9 @@ exports.login = (req, res) => {
     res.status(400);
     return res.send(response.failPOST("username", "Username is missing."));
   }
-  db
-    .oneOrNone("SELECT * FROM users WHERE username = ${username}", {
-      username
-    })
+  db.oneOrNone("SELECT * FROM users WHERE username = ${username}", {
+    username
+  })
     .then(data => {
       // part1 checks if user with username even exists
       // part2 compared hashed passwords
@@ -27,7 +26,7 @@ exports.login = (req, res) => {
         data === null ||
         helpers.sha512(password, data.salt).hash !== data.hash
       ) {
-        statusCode = 404;
+        statusCode = 401;
         body = {
           status: "fail",
           data: { authorization: "Wrong username or password." }
@@ -55,26 +54,25 @@ exports.register = (req, res) => {
     return res.send(response.failPOST("username", "Username is missing."));
   }
 
-  db
-    .task("user registration", async t => {
-      const result = await t.result("SELECT * FROM users WHERE username = $1", [
-        username
-      ]);
-      if (result.rowCount === 1) {
-        return false;
-      } else {
-        const salt = helpers.generateSalt(16);
-        const obj = helpers.sha512(password, salt);
-        return await t.one(
-          "INSERT INTO users (username, hash, salt) VALUES (${username}, ${hash}, ${salt}) RETURNING id, username",
-          {
-            username,
-            hash: obj.hash,
-            salt: obj.salt
-          }
-        );
-      }
-    })
+  db.task("user registration", async t => {
+    const result = await t.result("SELECT * FROM users WHERE username = $1", [
+      username
+    ]);
+    if (result.rowCount === 1) {
+      return false;
+    } else {
+      const salt = helpers.generateSalt(16);
+      const obj = helpers.sha512(password, salt);
+      return await t.one(
+        "INSERT INTO users (username, hash, salt) VALUES (${username}, ${hash}, ${salt}) RETURNING id, username",
+        {
+          username,
+          hash: obj.hash,
+          salt: obj.salt
+        }
+      );
+    }
+  })
     .then(result => {
       if (!result) {
         res.status(409);
