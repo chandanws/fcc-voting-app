@@ -1,5 +1,4 @@
 import { decodeJWT } from "../helpers/helpers";
-import { receiveError } from "./failActions";
 
 export const CHECK_TOKEN_LOGIN = "CHECK_TOKEN_LOGIN";
 const requestTokenLogin = login => {
