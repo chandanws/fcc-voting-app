@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Typography } from "../../Typography/Typography";
 import { FormElement, Form } from "../../form/FormComponent";
+import { LoadingWrapper, LoadingCircle } from "../../loading/LoadingCircle";
 
 class LoginComponent extends Component {
   state = {
@@ -10,8 +11,6 @@ class LoginComponent extends Component {
 
   handleSubmit = event => {
     event.preventDefault();
-
-    // do something with redux later
     this.props.login(this.state.username, this.state.password);
   };
 
@@ -24,6 +23,7 @@ class LoginComponent extends Component {
   };
 
   render() {
+    const { loginState } = this.props;
     return (
       <div>
         <Typography component="h1" text="Login" />
@@ -41,7 +41,13 @@ class LoginComponent extends Component {
             label="password"
             type="password"
           />
+          {loginState.fail && <div>{loginState.failMessage}</div>}
         </Form>
+        {loginState.isChecking && (
+          <LoadingWrapper>
+            <LoadingCircle />
+          </LoadingWrapper>
+        )}
       </div>
     );
   }
