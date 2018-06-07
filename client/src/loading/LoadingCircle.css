@@ -1,0 +1,18 @@
+.loading-circle {
+  border: 0.8rem solid lightgray;
+  border-radius: 50%;
+  width: 7rem;
+  height: 7rem;
+  border-top: 0.8rem solid blue;
+  animation: loading 2s linear infinite;
+}
+
+@keyframes loading {
+  0% {
+    transform: rotate(0);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
