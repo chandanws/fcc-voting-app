@@ -75,7 +75,17 @@ class CreatePollComponent extends Component {
             label="title"
           />
           {options}
-          <button onClick={this.addOption} type="button">
+          <button
+            style={{
+              backgroundColor: "lightgrey",
+              width: "40%",
+              margin: "auto",
+              padding: "1rem",
+              fontSize: "1.5rem"
+            }}
+            onClick={this.addOption}
+            type="button"
+          >
             Add option
           </button>
         </Form>
