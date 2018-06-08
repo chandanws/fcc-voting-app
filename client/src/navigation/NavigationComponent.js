@@ -15,6 +15,8 @@ class Navigation extends Component {
       <div className="navigation">
         <Appbar toggleDrawer={this.toggleDrawer} />
         <DrawerComponent
+          logout={this.props.logout}
+          isLogged={this.props.isLogged}
           toggleDrawer={this.toggleDrawer}
           drawerOpen={this.state.drawerOpen}
         />

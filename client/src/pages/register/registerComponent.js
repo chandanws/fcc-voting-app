@@ -28,7 +28,7 @@ class RegisterComponent extends Component {
   render() {
     return (
       <div>
-        <Typography component="h1" text="Login" />
+        <Typography component="h1" text="Register" />
         <Form onSubmit={this.handleSubmit}>
           <FormElement
             id={1}

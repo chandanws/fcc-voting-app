@@ -47,16 +47,20 @@ class CreatePollComponent extends Component {
             onChange={this.handleOptionsChange}
             value={value}
             label="option"
-          />
-          <button
-            style={{
-              alignSelf: "center",
-              backgroundColor: "lightgrey"
-            }}
-            onClick={() => this.removeOption(index)}
           >
-            x
-          </button>
+            <button
+              type="button"
+              style={{
+                backgroundColor: "lightgrey",
+                alignSelf: "stretch",
+                flexGrow: 1,
+                marginLeft: "1rem"
+              }}
+              onClick={() => this.removeOption(index)}
+            >
+              x
+            </button>
+          </FormElement>
         </div>
       );
     });

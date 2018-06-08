@@ -11,31 +11,38 @@ const DrawerComponent = props => {
   const classesNotDrawer = useModifierWithBlock("not-drawer", modifiers);
 
   // TODO: change later to use global logged in state
-  const drawerList = true ? (
+  const drawerList = props.isLogged ? (
     <List>
       <ListItem>
-        <Button component={Link} to="/profile">
+        <Button component={Link} to="/profile" onClick={props.toggleDrawer}>
           Profile
         </Button>
       </ListItem>
       <ListItem>
-        <Button component={Link} to="/polls/new">
+        <Button component={Link} to="/polls/new" onClick={props.toggleDrawer}>
           New
         </Button>
       </ListItem>
       <ListItem>
-        <Button>Logout</Button>
+        <Button
+          onClick={() => {
+            props.toggleDrawer();
+            props.logout();
+          }}
+        >
+          Logout
+        </Button>
       </ListItem>
     </List>
   ) : (
     <List>
       <ListItem>
-        <Button component={Link} to="/register">
+        <Button component={Link} to="/register" onClick={props.toggleDrawer}>
           Register
         </Button>
       </ListItem>
       <ListItem>
-        <Button component={Link} to="/login">
+        <Button component={Link} to="/login" onClick={props.toggleDrawer}>
           Login
         </Button>
       </ListItem>

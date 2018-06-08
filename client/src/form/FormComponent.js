@@ -23,7 +23,8 @@ export const FormElement = ({
   onChange,
   value,
   id,
-  validation
+  validation,
+  children
 }) => {
   let errorClassName;
   if (value === "" || validation === "") {
@@ -37,12 +38,15 @@ export const FormElement = ({
   return (
     <div className="form__wrapper">
       <label className="form__label">{label}</label>
-      <Component
-        type={type}
-        className={`form__input ${errorClassName}`}
-        value={value}
-        onChange={onChange(id)}
-      />
+      <div className="input-wrapper">
+        <Component
+          className={`form__input ${errorClassName}`}
+          type={type}
+          value={value}
+          onChange={onChange(id)}
+        />
+        {children}
+      </div>
     </div>
   );
 };

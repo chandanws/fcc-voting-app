@@ -9,6 +9,7 @@
   margin: 1rem 0;
   display: flex;
   flex-direction: column;
+  flex-grow: 5;
 }
 
 .form-wrapper--remove {
@@ -31,6 +32,7 @@
   font-size: 2rem;
   border: 1px solid black;
   padding: 1rem;
+  flex-grow: 4;
 }
 
 .form__submit {
@@ -47,6 +49,10 @@
 
 .form__input--success {
   border: 3px solid lightgreen;
+}
+
+.input-wrapper {
+  display: flex;
 }
 
 @media only screen and (min-width: 1000px) {

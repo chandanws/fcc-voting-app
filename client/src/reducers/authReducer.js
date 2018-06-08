@@ -1,12 +1,12 @@
 import {
   REQUEST_LOGIN,
   RECEIVE_LOGIN,
-  CHECK_TOKEN_LOGIN,
-  FAIL_LOGIN
+  FAIL_LOGIN,
+  LOGOUT
 } from "../actions/authActions";
 
 const initialState = {
-  isChecking: false,
+  isChecking: true,
   id: null,
   username: "",
   fail: false,
@@ -33,6 +33,14 @@ export default (state = initialState, action) => {
         id: null,
         fail: true,
         failMessage: action.payload
+      };
+    case LOGOUT:
+      return {
+        isChecking: false,
+        id: null,
+        username: "",
+        fail: false,
+        failMessage: ""
       };
     default:
       return state;
