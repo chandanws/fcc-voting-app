@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import Navigation from "../navigation";
 import HomepageContainer from "../pages/homepage/homepageContainer";
 import RegisterComponent from "../pages/register/registerComponent";
-import CreatePollComponent from "../pages/createpoll/createpollComponent";
 import { Router, Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PollContainer from "../pages/poll/PollContainer";
@@ -11,6 +10,7 @@ import ProfileComponent from "../pages/profile/ProfileComponent";
 import { WithAuth, WithoutLogIn } from "../middleware/authentication";
 import LoginContainer from "../pages/login/LoginContainer";
 import history from "../history";
+import CreatePollContainer from "../pages/createpoll/CreatePollContainer";
 
 export default class App extends Component {
   componentDidMount() {
@@ -50,7 +50,7 @@ export default class App extends Component {
                 <WithAuth
                   isChecking={loginState.isChecking}
                   path="/polls/new"
-                  component={CreatePollComponent}
+                  component={CreatePollContainer}
                   isLogged={loginState.username !== ""}
                 />
                 <Route path="/polls/:id" component={PollContainer} />
