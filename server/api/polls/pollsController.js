@@ -45,6 +45,7 @@ exports.polls_detail = (req, res) => {
 exports.polls_create = (req, res) => {
   // TODO: later, we will need to implement transaction so that options get added as well
 
+  console.log(req.body);
   const { title, options } = req.body;
   if (!title || options === undefined || options.length < 2) {
     res.status(400);
@@ -60,7 +61,7 @@ exports.polls_create = (req, res) => {
     const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
       table: "options"
     });
-    const values = JSON.parse(options).map(option => {
+    const values = options.map(option => {
       return { poll_id: poll.id, name: option };
     });
     const query = pgp.helpers.insert(values, cs);
