@@ -12,7 +12,12 @@ export const checkTokenLogin = () => {
       dispatch(failLogin("No token"));
     } else {
       const decoded = decodeJWT(token).data;
-      dispatch(receiveLogin(decoded));
+      if (decodeJWT(token).exp - Date.now() / 1000 <= 0) {
+        localStorage.removeItem("fcc-voting-app-token");
+        dispatch(failLogin("Expired token"));
+      } else {
+        dispatch(receiveLogin(decoded));
+      }
     }
   };
 };
