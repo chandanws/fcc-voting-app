@@ -12,7 +12,7 @@ class CreatePollComponent extends Component {
   handleSubmit = event => {
     event.preventDefault();
     // do something with redux later
-    console.log(this.state);
+    this.props.createPoll(this.state.title, this.state.options);
   };
 
   addOption = () => this.setState({ options: [...this.state.options, ""] });
