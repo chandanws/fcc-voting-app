@@ -6,7 +6,7 @@ import { removeElementFromArray } from "../../helpers/helpers";
 class CreatePollComponent extends Component {
   state = {
     title: "",
-    options: [""]
+    options: ["", ""]
   };
 
   handleSubmit = event => {
