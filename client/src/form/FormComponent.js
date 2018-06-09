@@ -3,11 +3,16 @@ import PropTypes from "prop-types";
 import "./FormComponent.css";
 import { useModifierWithBlock } from "../helpers/helpers";
 
-export const Form = ({ children, className, ...props }) => {
+export const Form = ({ children, disabled, className, ...props }) => {
+  const submit = disabled ? (
+    <input disabled className="form__submit" type="submit" value="submit" />
+  ) : (
+    <input className="form__submit" type="submit" value="submit" />
+  );
   return (
     <form className={`form ${className}`} {...props}>
       {children}
-      <input className="form__submit" type="submit" value="submit" />
+      {submit}
     </form>
   );
 };
