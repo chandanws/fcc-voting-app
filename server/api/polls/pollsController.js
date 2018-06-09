@@ -45,28 +45,46 @@ exports.polls_detail = (req, res) => {
 exports.polls_create = (req, res) => {
   // TODO: later, we will need to implement transaction so that options get added as well
 
-  console.log(req.body);
   const { title, options } = req.body;
-  if (!title || options === undefined || options.length < 2) {
+  if (title === undefined || title === "") {
     res.status(400);
     res.set("Content-Type", "application/json");
-    return res.json({ status: "fail", data: { title: "A title is required" } });
+    return res.json({ status: "fail", message: "A title is required" });
   }
 
-  db.task(async t => {
-    const poll = await t.one(
-      "INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id",
-      [res.locals.id, title]
-    );
-    const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
-      table: "options"
+  if (options === undefined || options.length < 2) {
+    res.status(400);
+    res.set("Content-Type", "application/json");
+    return res.json({ status: "fail", message: "Minimum options: 2" });
+  }
+
+  if (options.includes("")) {
+    res.status(400);
+    res.set("Content-Type", "application/json");
+    return res.json({
+      status: "fail",
+      message: "Option with no value not allowed"
     });
-    const values = options.map(option => {
-      return { poll_id: poll.id, name: option };
-    });
-    const query = pgp.helpers.insert(values, cs);
-    const nothing = await t.none(query);
-    return { id: poll.id };
+  }
+
+  db.tx(async t => {
+    return t
+      .one("INSERT INTO polls (user_id, title) VALUES ($1, $2) RETURNING id", [
+        res.locals.id,
+        title
+      ])
+      .then(poll => {
+        const cs = new pgp.helpers.ColumnSet(["poll_id", "name"], {
+          table: "options"
+        });
+        const values = options.map(option => {
+          return { poll_id: poll.id, name: option };
+        });
+        const query = pgp.helpers.insert(values, cs);
+        return t.none(query).then(() => {
+          return { id: poll.id };
+        });
+      });
   })
     .then(data => {
       res.status(201);
