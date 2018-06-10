@@ -11,7 +11,8 @@ const CommentComponent = props => {
     comment,
     toggleOpenReplies,
     openReplies,
-    handleReplyState
+    handleReplyState,
+    onSubmit
   } = props;
   const result =
     closed.indexOf(comment.comment_id) !== -1 ? (
@@ -59,10 +60,7 @@ const CommentComponent = props => {
         {objectWithIdInArray(openReplies, comment.comment_id) !== -1 && (
           <form
             className="comment__form"
-            onSubmit={e => {
-              e.preventDefault();
-              console.log(openReplies);
-            }}
+            onSubmit={onSubmit(comment.comment_id)}
           >
             <textarea
               className="comment__textarea"
@@ -72,6 +70,7 @@ const CommentComponent = props => {
           </form>
         )}
         <Comments
+          onSubmit={onSubmit}
           openReplies={props.openReplies}
           toggleOpenReplies={props.toggleOpenReplies}
           handleReplyState={props.handleReplyState}

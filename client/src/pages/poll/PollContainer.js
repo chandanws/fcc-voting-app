@@ -5,6 +5,7 @@ import {
   fetchSpecificPoll,
   initiatePollVote
 } from "../../actions/specificPollActions";
+import { fetchMakeComment } from "../../actions/commentActions";
 
 const mapStateToProps = state => ({
   specificPoll: state.specificPoll
@@ -12,7 +13,9 @@ const mapStateToProps = state => ({
 
 const mapDispatchToProps = dispatch => ({
   fetchSpecificPoll: poll_id => dispatch(fetchSpecificPoll(poll_id)),
-  vote: (poll_id, option_id) => dispatch(initiatePollVote(poll_id, option_id))
+  vote: (poll_id, option_id) => dispatch(initiatePollVote(poll_id, option_id)),
+  makeComment: (poll_id, parent_id, text) =>
+    dispatch(fetchMakeComment(poll_id, parent_id, text))
 });
 
 export default connect(

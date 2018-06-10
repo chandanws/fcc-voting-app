@@ -102,3 +102,13 @@ export const decodeJWT = token => {
   const base64 = base64Url.replace("-", "+").replace("-", "/");
   return JSON.parse(window.atob(base64));
 };
+
+export const findObjectInArrayById = (array, id) => {
+  let obj = {};
+  array.forEach(element => {
+    if (element.id === id) {
+      obj = element;
+    }
+  });
+  return obj;
+};

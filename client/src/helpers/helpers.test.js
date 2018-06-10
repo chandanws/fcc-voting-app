@@ -4,7 +4,8 @@ import {
   toggleObjectsInArray,
   removeElementFromArray,
   changeValueInArrayOfObjects,
-  objectWithIdInArray
+  objectWithIdInArray,
+  findObjectInArrayById
 } from "./helpers";
 
 describe("useModifierWithBlock", () => {
@@ -143,5 +144,22 @@ describe("removeElementFromArray", () => {
 
   it("should remove 4 when index is 3", () => {
     expect(removeElementFromArray(oldArray, 3)).toEqual([1, 2, 3]);
+  });
+});
+
+describe("findObjectInArrayById", () => {
+  let oldArray;
+  beforeAll(() => {
+    oldArray = [
+      { id: 1, replyValue: "test" },
+      { id: 3, replyValue: "guba" },
+      { id: 4, replyValue: "" }
+    ];
+  });
+  it("should find it", () => {
+    expect(findObjectInArrayById(oldArray, 3)).toEqual({
+      id: 3,
+      replyValue: "guba"
+    });
   });
 });

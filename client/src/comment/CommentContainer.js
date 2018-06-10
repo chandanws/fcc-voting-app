@@ -3,7 +3,8 @@ import CommentComponent from "./CommentComponent";
 import {
   toggleElementInArray,
   toggleObjectsInArray,
-  changeValueInArrayOfObjects
+  changeValueInArrayOfObjects,
+  findObjectInArrayById
 } from "../helpers/helpers";
 import { connect } from "react-redux";
 import { fetchComments } from "../actions/commentActions";
@@ -46,11 +47,20 @@ class CommentContainer extends Component {
     });
   };
 
+  handleSubmit = id => event => {
+    event.preventDefault();
+    const obj = findObjectInArrayById(this.state.openReplies, id);
+    this.props.makeComment(this.props.poll_id, obj.id, obj.value).then(() => {
+      this.toggleOpenReplies(id);
+    });
+  };
+
   render() {
     return (
       <div style={{ marginLeft: "-2rem" }}>
         {this.props.comments.data[0] && (
           <Comments
+            onSubmit={this.handleSubmit}
             openReplies={this.state.openReplies}
             toggleOpenReplies={this.toggleOpenReplies}
             handleReplyState={this.handleReplyState}
@@ -83,6 +93,7 @@ export const Comments = props => {
       {props.comments.map((comment, index) => {
         return (
           <CommentComponent
+            onSubmit={props.onSubmit}
             key={index}
             openReplies={props.openReplies}
             toggleOpenReplies={props.toggleOpenReplies}

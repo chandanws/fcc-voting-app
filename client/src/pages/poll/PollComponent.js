@@ -116,6 +116,12 @@ export default class PollComponent extends Component {
           className="comment__form"
           onSubmit={e => {
             e.preventDefault();
+            this.props.makeComment(
+              this.props.match.params.id,
+              null,
+              this.state.replyValue
+            );
+            this.setState({ replyValue: "" });
           }}
         >
           <textarea
@@ -125,7 +131,10 @@ export default class PollComponent extends Component {
           <button className="comment__submit">Submit</button>
         </form>
 
-        <CommentContainer poll_id={this.props.match.params.id} />
+        <CommentContainer
+          makeComment={this.props.makeComment}
+          poll_id={this.props.match.params.id}
+        />
       </div>
     );
   }
