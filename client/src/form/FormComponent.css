@@ -44,11 +44,11 @@
 }
 
 .form__input--error {
-  border: 3px solid red;
+  background-color: #ffcccc;
 }
 
 .form__input--success {
-  border: 3px solid lightgreen;
+  background-color: lightgreen;
 }
 
 .input-wrapper {

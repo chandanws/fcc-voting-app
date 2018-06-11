@@ -34,10 +34,10 @@ export const failLogin = message => ({
   payload: message
 });
 
-export const fetchLogin = (username, password) => {
+export const fetchLogin = (username, password, url = "/auth/login") => {
   return dispatch => {
     dispatch(requestLogin());
-    return fetch(`/auth/login`, {
+    return fetch(url, {
       body: JSON.stringify({ username, password }),
       cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
       credentials: "same-origin", // include, same-origin, *omit
@@ -57,7 +57,7 @@ export const fetchLogin = (username, password) => {
         dispatch(receiveLogin(decoded));
       } else {
         return response.json().then(json => {
-          dispatch(failLogin(json.data.authorization));
+          dispatch(failLogin("Client side error "));
         });
       }
     });
@@ -69,5 +69,29 @@ export const logout = () => {
   localStorage.removeItem("fcc-voting-app-token");
   return {
     type: LOGOUT
+  };
+};
+
+export const REQUEST_USERNAME_AVAILABILITY = "REQUEST_USERNAME_AVAILABILITY";
+export const requestUsernameAvailability = () => ({
+  type: REQUEST_USERNAME_AVAILABILITY
+});
+
+export const RECEIVE_USERNAME_AVAILABILITY = "RECEIVE_USERNAME_AVAILABILITY";
+export const receiveUsernameAvailability = boolean => ({
+  type: RECEIVE_USERNAME_AVAILABILITY,
+  payload: boolean
+});
+
+export const fetchUsernameAvailability = username => {
+  return dispatch => {
+    dispatch(requestUsernameAvailability());
+    return fetch(`/auth/username/${username}`)
+      .then(response => {
+        return response.json();
+      })
+      .then(json => {
+        dispatch(receiveUsernameAvailability(json.data.rowCount === 0));
+      });
   };
 };

@@ -2,7 +2,9 @@ import {
   REQUEST_LOGIN,
   RECEIVE_LOGIN,
   FAIL_LOGIN,
-  LOGOUT
+  LOGOUT,
+  REQUEST_USERNAME_AVAILABILITY,
+  RECEIVE_USERNAME_AVAILABILITY
 } from "../actions/authActions";
 
 const initialState = {
@@ -10,7 +12,9 @@ const initialState = {
   id: null,
   username: "",
   fail: false,
-  failMessage: ""
+  failMessage: "",
+  checkingUsernameAvailability: false,
+  usernameAvailability: true
 };
 
 export default (state = initialState, action) => {
@@ -41,6 +45,15 @@ export default (state = initialState, action) => {
         username: "",
         fail: false,
         failMessage: ""
+      };
+    case REQUEST_USERNAME_AVAILABILITY:
+      return { ...state, checkingUsernameAvailability: true };
+    case RECEIVE_USERNAME_AVAILABILITY:
+      console.log("Did it occur", action.payload);
+      return {
+        ...state,
+        checkingUsernameAvailability: false,
+        usernameAvailability: action.payload
       };
     default:
       return state;

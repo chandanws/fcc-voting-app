@@ -1,7 +1,6 @@
 import React, { Component } from "react";
 import Navigation from "../navigation";
 import HomepageContainer from "../pages/homepage/homepageContainer";
-import RegisterComponent from "../pages/register/registerComponent";
 import { Router, Route } from "react-router-dom";
 import { Switch } from "react-router-dom";
 import PollContainer from "../pages/poll/PollContainer";
@@ -11,6 +10,7 @@ import { WithAuth, WithoutLogIn } from "../middleware/authentication";
 import LoginContainer from "../pages/login/LoginContainer";
 import history from "../history";
 import CreatePollContainer from "../pages/createpoll/CreatePollContainer";
+import RegisterContainer from "../pages/register/registerContainer";
 
 export default class App extends Component {
   componentDidMount() {
@@ -32,7 +32,7 @@ export default class App extends Component {
               <Route exact path="/" component={HomepageContainer} />
               <WithoutLogIn
                 path="/register"
-                component={RegisterComponent}
+                component={RegisterContainer}
                 isLogged={loginState.username !== ""}
               />
               <WithAuth

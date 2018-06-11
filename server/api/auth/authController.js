@@ -76,7 +76,7 @@ exports.register = (req, res) => {
     .then(result => {
       if (!result) {
         res.status(409);
-        return res.send("error");
+        return res.send({});
       }
       res.status(201);
       const token = helpers.createJWT(result.username, result.id, 60);
@@ -90,5 +90,16 @@ exports.register = (req, res) => {
       console.log(err);
       res.status(500);
       return res.send(response.serverError());
+    });
+};
+
+exports.username_available = (req, res) => {
+  db.result("SELECT 1 FROM users WHERE username = $1", [req.params.username])
+    .then(data => {
+      return res.send({ data });
+    })
+    .catch(e => {
+      console.log(e);
+      return res.send({});
     });
 };
