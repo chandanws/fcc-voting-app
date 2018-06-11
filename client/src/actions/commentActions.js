@@ -67,3 +67,43 @@ export const fetchMakeComment = (poll_id, parent_id, text) => {
     });
   };
 };
+
+export const REQUEST_COMMENT_EDIT = "REQUEST_COMMENT_EDIT";
+export const requestCommentEdit = () => ({
+  type: REQUEST_COMMENT_EDIT
+});
+
+export const FAIL_COMMENT_EDIT = "FAIL_COMMENT_EDIT";
+export const failCommentEdit = message => ({
+  type: FAIL_COMMENT_EDIT,
+  payload: message
+});
+
+export const SUCCESS_COMMENT_EDIT = "SUCCESS_COMMENT_EDIT";
+export const successCommentEdit = () => ({
+  type: SUCCESS_COMMENT_EDIT
+});
+
+export const fetchCommentEdit = (poll_id, comment_id, text) => dispatch => {
+  dispatch(requestCommentEdit());
+  return fetch(`/polls/${poll_id}/comments/${comment_id}`, {
+    body: JSON.stringify({ text }),
+    cache: "no-cache", // *default, no-cache, reload, force-cache, only-if-cached
+    credentials: "same-origin", // include, same-origin, *omit
+    headers: {
+      "user-agent": "Mozilla/4.0 MDN Example",
+      "content-type": "application/json",
+      authorization: `Bearer ${localStorage.getItem("fcc-voting-app-token")}`
+    },
+    method: "PUT",
+    mode: "cors", // no-cors, cors, *same-origin
+    redirect: "follow", // manual, *follow, error
+    referrer: "no-referrer" // *client, no-referrer
+  })
+    .then(response => {
+      dispatch(fetchComments(poll_id));
+    })
+    .catch(e => {
+      console.log(e);
+    });
+};

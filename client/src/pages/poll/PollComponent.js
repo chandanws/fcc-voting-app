@@ -1,16 +1,7 @@
 import React, { Component } from "react";
-import PropTypes from "prop-types";
 import { Typography } from "../../Typography/Typography";
-import {
-  PieChart,
-  Pie,
-  Legend,
-  Sector,
-  Cell,
-  Label,
-  ResponsiveContainer
-} from "recharts";
-import { Form, FormElement } from "../../form/FormComponent";
+import { PieChart, Pie, Legend, Cell, ResponsiveContainer } from "recharts";
+import { Form } from "../../form/FormComponent";
 import CommentContainer from "../../comment/CommentContainer";
 import "./PollComponent.css";
 import { LoadingCircle, LoadingWrapper } from "../../loading/LoadingCircle";
@@ -84,7 +75,11 @@ export default class PollComponent extends Component {
               </Pie>
             </PieChart>
           </ResponsiveContainer>
-          <Form className="chart__form" onSubmit={this.handleSubmit}>
+          <Form
+            className="chart__form"
+            disabled={this.props.userID === null}
+            onSubmit={this.handleSubmit}
+          >
             <label className="form__label">
               Select option:
               {specificPoll.data.options && (
@@ -116,22 +111,32 @@ export default class PollComponent extends Component {
           className="comment__form"
           onSubmit={e => {
             e.preventDefault();
+            const replyValue = this.state.replyValue;
+            this.setState({ replyValue: "" });
             this.props.makeComment(
               this.props.match.params.id,
               null,
-              this.state.replyValue
+              replyValue
             );
-            this.setState({ replyValue: "" });
           }}
         >
           <textarea
             className="comment__textarea"
+            value={this.state.replyValue}
             onChange={e => this.setState({ replyValue: e.target.value })}
           />
-          <button className="comment__submit">Submit</button>
+          <button
+            disabled={this.props.userID === null}
+            type="submit"
+            className="comment__submit"
+          >
+            Submit
+          </button>
         </form>
 
         <CommentContainer
+          editComment={this.props.editComment}
+          userID={this.props.userID}
           makeComment={this.props.makeComment}
           poll_id={this.props.match.params.id}
         />

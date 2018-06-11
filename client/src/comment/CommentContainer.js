@@ -15,7 +15,9 @@ class CommentContainer extends Component {
   // open replies => [ {id: 1, value: "something"}, {id: 2, value: "something" }]
   state = {
     closed: [],
-    openReplies: []
+    openReplies: [],
+    editCommentId: null,
+    editCommentValue: ""
   };
 
   componentDidMount() {
@@ -51,26 +53,41 @@ class CommentContainer extends Component {
     event.preventDefault();
     const obj = findObjectInArrayById(this.state.openReplies, id);
     this.props.makeComment(this.props.poll_id, obj.id, obj.value).then(() => {
+      console.log("test");
       this.toggleOpenReplies(id);
     });
   };
 
+  editComment = (id, text) => {
+    this.setState({ editCommentId: id, editCommentValue: text });
+  };
+
+  handleEditCommentValue = event => {
+    this.setState({ editCommentValue: event.target.value });
+  };
+
   render() {
-    return (
-      <div style={{ marginLeft: "-2rem" }}>
-        {this.props.comments.data[0] && (
-          <Comments
-            onSubmit={this.handleSubmit}
-            openReplies={this.state.openReplies}
-            toggleOpenReplies={this.toggleOpenReplies}
-            handleReplyState={this.handleReplyState}
-            closed={this.state.closed}
-            toggleTree={this.toggleTree}
-            comments={this.props.comments.data}
-          />
-        )}
-      </div>
+    const commentsTags = this.props.comments.data[0] ? (
+      <Comments
+        poll_id={this.props.poll_id}
+        fetchEditComment={this.props.editComment}
+        userID={this.props.userID}
+        editCommentValue={this.state.editCommentValue}
+        editComment={this.editComment}
+        handleEditCommentValue={this.handleEditCommentValue}
+        editCommentId={this.state.editCommentId}
+        onSubmit={this.handleSubmit}
+        openReplies={this.state.openReplies}
+        toggleOpenReplies={this.toggleOpenReplies}
+        handleReplyState={this.handleReplyState}
+        closed={this.state.closed}
+        toggleTree={this.toggleTree}
+        comments={this.props.comments.data}
+      />
+    ) : (
+      <div style={{ marginLeft: "2rem" }}>No comments</div>
     );
+    return <div style={{ marginLeft: "-2rem" }}>{commentsTags}</div>;
   }
 }
 
@@ -93,6 +110,13 @@ export const Comments = props => {
       {props.comments.map((comment, index) => {
         return (
           <CommentComponent
+            poll_id={props.poll_id}
+            fetchEditComment={props.fetchEditComment}
+            userID={props.userID}
+            editCommentValue={props.editCommentValue}
+            editComment={props.editComment}
+            handleEditCommentValue={props.handleEditCommentValue}
+            editCommentId={props.editCommentId}
             onSubmit={props.onSubmit}
             key={index}
             openReplies={props.openReplies}

@@ -3,7 +3,8 @@ import {
   RECEIEVE_COMMENTS,
   REQUEST_MAKE_COMMENT,
   FAIL_MAKE_COMMENT,
-  SUCCESS_MAKE_COMMENT
+  SUCCESS_MAKE_COMMENT,
+  REQUEST_COMMENT_EDIT
 } from "../actions/commentActions";
 
 const initialState = {
@@ -11,6 +12,8 @@ const initialState = {
   isCreating: false,
   failCreating: false,
   failMessage: "",
+  editRequest: false,
+  editStatus: "",
   data: []
 };
 
@@ -35,6 +38,11 @@ export default (state = initialState, action) => {
         isCreating: false,
         failCreating: false,
         failMessage: ""
+      };
+    case REQUEST_COMMENT_EDIT:
+      return {
+        ...state,
+        editRequest: true
       };
     default:
       return state;
